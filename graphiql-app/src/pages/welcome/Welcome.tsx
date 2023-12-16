@@ -88,7 +88,6 @@ function Welcome() {
           </p>
         </div>
       </section>
-     
     </>
   );
 }

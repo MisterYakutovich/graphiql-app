@@ -56,7 +56,6 @@
   margin-right: 46px;
 }
 .button:last-child {
- 
 }
 .header_link {
   color: #010201;
@@ -67,13 +66,13 @@
   text-decoration: none;
   list-style: none;
   font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
 }
 .header_link:hover,
 .header_link:focus,
