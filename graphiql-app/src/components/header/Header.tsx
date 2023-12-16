@@ -1,18 +1,17 @@
 import { Link,useNavigate } from 'react-router-dom';
-//import { isAuth } from '../../utils/flag';
 import './Header.css';
-import { LOGIN_ROUTE, MAIN_ROUTE, WELCOME_ROUTE } from '../../utils/consts';
+import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE, WELCOME_ROUTE } from '../../utils/consts';
 import { useContext, useEffect } from 'react';
 import { Context } from '../../main';
 import {useAuthState} from "react-firebase-hooks/auth"
 function Header() {
   const auth=useContext(Context)
-  const [user,loading] = useAuthState(auth?.auth)
+  const [user,loading] = useAuthState(auth!.auth)
   const navigate=useNavigate()
   useEffect(() => {
     if (loading) {     
       return;
-    }
+   }
     if (user) navigate(`${MAIN_ROUTE}`);
   }, [user, loading]);
   return (
@@ -40,7 +39,9 @@ function Header() {
               <Link to={LOGIN_ROUTE}>
               <button className="button">SIGN IN</button>
               </Link>
+              <Link to={REGISTRATION_ROUTE}>
               <button className="button">SIGN UP</button>
+              </Link>
               </>
               }               
             </ul>
