@@ -1,0 +1,11 @@
+{
+    "title": "Welcome to My App",
+    "greeting": "Hello, User!",
+    "description_text": "GraphiQL is a playground/IDE for graphQL requests. In this project you can authenticate and register using Firebase technology with login method by email and password. After logging in you will be taken to GraphiQL page with:",
+    "description_text_1": "request editor (query editor / JSON viewer);",
+    "description_text_2": "variables editor;",
+    "description_text_3": "headers editor;",
+    "description_text_4": "documentation explorer;",
+    "description_text_5": "response section (query editor / JSON viewer);",
+    "description_text_6": "possibility to change to a different user-specified API endpoint;"
+  }

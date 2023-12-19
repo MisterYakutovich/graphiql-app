@@ -28,7 +28,7 @@
 }
 .description {
   position: relative;
-  width: 700px;
+  width: 800px;
   height: 105px;
   margin: 0 auto;
   text-align: center;
@@ -37,7 +37,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 23px;
   line-height: 35px;
   color: #636060;
 }

@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+      <Header/>
         <Routes>
           <Route
             path={MAIN_ROUTE}

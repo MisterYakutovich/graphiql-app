@@ -36,7 +36,7 @@
 }
 
 .ic2 {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .input {
@@ -109,7 +109,7 @@
   cursor: pointer;
   font-size: 18px;
   height: 50px;
-  margin-top: 30px;
+  margin-top: 40px;
   outline: 0;
   text-align: center;
   width: 100%;
@@ -130,4 +130,13 @@
 }
 .back_sign_in span {
   color: #08d;
+}
+.error_registration {
+  margin-top: 10px;
+  color: red;
+}
+.submit:disabled, .submit:hover:disabled {
+  background-color: rgba(0,0,0,.1);
+  border: 1px solid rgba(0, 0, 0, .1);
+  cursor: not-allowed;
 }

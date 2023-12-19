@@ -45,8 +45,8 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder=" "
           />
-          <div className="cut"></div>
-          <label htmlFor="password" className="placeholder_login">
+          <div className="cut cut-short_login"></div>
+          <label htmlFor="password" className="placeholder">
             Password
           </label>
         </div>

@@ -6,11 +6,17 @@ import {
   REGISTRATION_ROUTE,
   WELCOME_ROUTE,
 } from '../../utils/consts';
-import { useContext, useEffect } from 'react';
-import { Context } from '../../main';
+import { useContext, useEffect, useState } from 'react';
+import { Context, useLanguage } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import SwitchLanguages from '../localization/Languages';
+
+
+
 function Header() {
+  
   const auth = useContext(Context);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [user, loading] = useAuthState(auth!.auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,15 +27,21 @@ function Header() {
   }, [user, loading]);
   return (
     <header className="header">
+    
       <div className="wrapper">
+     
         <div className="header_wrapper">
+        
           <nav className="header-nav_welcome">
             <ul>
               <Link to={WELCOME_ROUTE}>
                 <li className="header_link_welcome">WELCOME</li>
               </Link>
+              
             </ul>
+            <SwitchLanguages/>
           </nav>
+         
           <nav className="navbar">
             <ul className="header_list">
               {user ? (
@@ -57,6 +69,7 @@ function Header() {
             </ul>
           </nav>
         </div>
+       
       </div>
     </header>
   );

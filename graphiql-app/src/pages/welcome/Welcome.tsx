@@ -1,6 +1,10 @@
 import './Welcome.css';
 import '../../assets/rs_school.svg';
+import { useLanguage } from '../../main';
+
 function Welcome() {
+  const { language, translations } = useLanguage();
+  console.log(language)
   return (
     <>
       <section className="welcome">
@@ -10,22 +14,19 @@ function Welcome() {
           </h1>
           <div className="description">
             <p className="description_text">
-              GraphiQL is a playground/IDE for graphQL requests. In this project
-              you can authenticate and register using Firebase technology with
-              login method by email and password. After logging in you will be
-              taken to GraphiQL page with:
+            {translations[language].description_text}
               <br />
-              request editor (query editor / JSON viewer);
+              {translations[language].description_text_1}
               <br />
-              variables editor;
+              {translations[language].description_text_2}
               <br />
-              headers editor;
+              {translations[language].description_text_3}
               <br />
-              documentation explorer;
+              {translations[language].description_text_4}
               <br />
-              response section (query editor / JSON viewer);
+              {translations[language].description_text_5}
               <br />
-              possibility to change to a different user-specified API endpoint;
+              {translations[language].description_text_6}
               <br />
             </p>
           </div>

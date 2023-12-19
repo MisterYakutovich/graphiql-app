@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { FC, createContext, useContext, useState, } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
@@ -18,12 +18,66 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import enData from "../src/components/localization/json/en.json";
+import ruData from '../src/components/localization/json/ru.json';
+
+
+interface Translations {
+  description_text:string;
+  description_text_1:string;
+  description_text_2:string;
+  description_text_3:string;
+  description_text_4:string;
+  description_text_5:string;
+  description_text_6:string;
+}
+
+interface LanguageContextProps {
+  language: string;
+  translations: Record<string, Translations>;
+  changeLanguage: (newLanguage: string) => void;
+}
+
+const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
+
+export const useLanguage = (): LanguageContextProps => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
+
+interface LanguageProviderProps {
+  children: React.ReactNode;
+}
+
+export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
+  const [language, setLanguage] = useState<string>('EN');
+  const translations: Record<string, Translations> = {
+    EN: enData,
+    RU: ruData,
+  };
+  const changeLanguage = (newLanguage: string) => {
+    setLanguage(newLanguage);
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, translations, changeLanguage }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+
 
 interface ContextValue {
   auth: Auth;
   db: Firestore;
   signInWithGoogle: () => Promise<void>;
+ 
 }
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCgcg4liT5oqSclmnlNPbILgECwGp43xxI',
   authDomain: 'graphql-cfa62.firebaseapp.com',
@@ -63,8 +117,10 @@ export const Context = createContext<ContextValue | null>(null);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <LanguageProvider>
     <Context.Provider value={{ auth, db, signInWithGoogle }}>
       <App />
     </Context.Provider>
+    </LanguageProvider>
   </React.StrictMode>
 );

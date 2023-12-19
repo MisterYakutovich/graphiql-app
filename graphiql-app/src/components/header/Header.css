@@ -29,6 +29,10 @@
   align-items: center;
   height: 50px;
 }
+.header-nav_welcome {
+  display: flex;
+  flex-wrap: wrap;
+}
 .button {
   width: 158px;
   height: 44px;
@@ -45,6 +49,7 @@
   cursor: pointer;
   margin-right: 40px;
   background-color: beige;
+  color: #717171;
   /* transition: 1s;*/
 }
 .button:hover {
@@ -55,8 +60,7 @@
 .header_item {
   margin-right: 46px;
 }
-.button:last-child {
-}
+
 .header_link {
   color: #010201;
   text-decoration: none;
