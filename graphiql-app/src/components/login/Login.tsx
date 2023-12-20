@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
-import { Context } from '../../main';
+import { Context, useLanguage } from '../../main';
 import './Login.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 function Login() {
+  const { language, translations } = useLanguage();
   const auth = useContext(Context);
   const logInWithEmailAndPassword = async (email: string, password: string) => {
     try {
@@ -22,7 +23,7 @@ function Login() {
    
     <section className="section-form_login">
       <div className="form-login">
-        <div className="form-login_title">Welcome</div>
+        <div className="form-login_title"> {translations[language].form_login_title}</div>
 
         <div className="input-container_login ic2">
           <input
@@ -34,7 +35,7 @@ function Login() {
           />
           <div className="cut cut-short_login"></div>
           <label htmlFor="email" className="placeholder">
-            Email
+          {translations[language].email}
           </label>
         </div>
         <div className="input-container_login ic2">
@@ -47,17 +48,17 @@ function Login() {
           />
           <div className="cut cut-short_login"></div>
           <label htmlFor="password" className="placeholder">
-            Password
+          {translations[language].password}
           </label>
         </div>
         <button
           className="submit_login"
           onClick={() => logInWithEmailAndPassword(email, password)}
         >
-          Login
+          {translations[language].submit_login}
         </button>
         <button className="submit_login" onClick={auth?.signInWithGoogle}>
-          Login with Google
+        {translations[language].submit_login_2}
         </button>
       </div>
     </section>

@@ -51,14 +51,14 @@
 .about_section_title {
   position: relative;
   top: 75px;
-  width: 605px;
+  width: 700px;
   height: 350px;
   margin: 0 auto;
   text-align: center;
 }
 .about_title {
   position: relative;
-  font-size: 40px;
+  font-size: 36px;
   line-height: 52px;
   height: 102px;
   color: chartreuse;

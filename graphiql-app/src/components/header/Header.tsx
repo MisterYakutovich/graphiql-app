@@ -17,6 +17,7 @@ function Header() {
   
   const auth = useContext(Context);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { language, translations } = useLanguage();
   const [user, loading] = useAuthState(auth!.auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -35,7 +36,7 @@ function Header() {
           <nav className="header-nav_welcome">
             <ul>
               <Link to={WELCOME_ROUTE}>
-                <li className="header_link_welcome">WELCOME</li>
+                <li className="header_link_welcome">{translations[language].welcome}</li>
               </Link>
               
             </ul>
@@ -47,22 +48,22 @@ function Header() {
               {user ? (
                 <>
                   <Link to={MAIN_ROUTE}>
-                    <button className="button">MAIN</button>
+                    <button className="button">{translations[language].main}</button>
                   </Link>
                   <button
                     onClick={() => auth?.auth.signOut()}
                     className="button"
                   >
-                    SIGN OUT
+                    {translations[language].signOut}
                   </button>
                 </>
               ) : (
                 <>
                   <Link to={LOGIN_ROUTE}>
-                    <button className="button">SIGN IN</button>
+                    <button className="button">{translations[language].signIn}</button>
                   </Link>
                   <Link to={REGISTRATION_ROUTE}>
-                    <button className="button">SIGN UP</button>
+                    <button className="button">{translations[language].signup}</button>
                   </Link>
                 </>
               )}

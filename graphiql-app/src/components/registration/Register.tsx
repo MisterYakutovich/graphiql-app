@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import './Register.css';
-import { Context } from '../../main';
+import { Context, useLanguage } from '../../main';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { LOGIN_ROUTE } from '../../utils/consts';
@@ -19,7 +19,7 @@ export interface IFormInput {
 
 function Register() {
   const auth = useContext(Context);
- 
+  const { language, translations } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -60,30 +60,30 @@ function Register() {
     }
   };
  const registration = () => {
-    if (!name) alert(`Please enter name`);
+    if (!name) alert( `${translations[language].alert_registration}`);//Please enter name
    registerWithEmailAndPassword(name, email, password);
 
   };
  
   const getCharacterValidationError = (str: string) => {
-    return `Your password must have at least 1 ${str} character`;
+    return `${translations[language].validacia_password} ${str}`;//Your password must have at least 1 ${str} character
   };
  
   const schema = yup.object().shape({
     firstName: yup
       .string()
       .required()
-      .matches(/^[A-Z]/, 'First name must start with an uppercase letter'),
+      .matches(/^[A-Z]/, `${translations[language].validation_name}`),//First name must start with an uppercase letter
     email: yup.string().email().required(),
     password: yup
       .string()
-      .min(8)
+      .min(5)
       .max(32)
       .required()
-      .matches(/[0-9]/, getCharacterValidationError('digit'))
-      .matches(/[a-z]/, getCharacterValidationError('lowercase'))
-      .matches(/[A-Z]/, getCharacterValidationError('uppercase'))
-      .matches(/[^\w ]/g, getCharacterValidationError('simbol')),
+      .matches(/[0-9]/, getCharacterValidationError(`${translations[language].digit}`))//digit
+      .matches(/[a-z]/, getCharacterValidationError(`${translations[language].lowercase}`))//lowercase
+      .matches(/[A-Z]/, getCharacterValidationError(`${translations[language].uppercase}`))//uppercase
+      .matches(/[^\w ]/g, getCharacterValidationError(`${translations[language].simbol}`)),//simbol
   });
   const {
     register,
@@ -94,7 +94,7 @@ function Register() {
   return (
     <section className="section-form">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form_title">Welcome</div>
+        <div className="form_title">{translations[language].form_login_title}</div>
 
         <div className="input-container ic1">
           <input
@@ -109,7 +109,7 @@ function Register() {
          
           <div className="cut"></div>
           <label htmlFor="firstname" className="placeholder">
-            First name
+          {translations[language].firstname}
           </label>
           <p className="error_registration">{errors.firstName?.message}</p>
         </div>
@@ -124,7 +124,7 @@ function Register() {
           />
           <div className="cut cut-short"></div>
           <label htmlFor="email" className="placeholder">
-            Email
+          {translations[language].email}
           </label>
           <p className="error_registration">{errors.email?.message}</p>
         </div>
@@ -139,22 +139,22 @@ function Register() {
           />
           <div className="cut"></div>
           <label htmlFor="password" className="placeholder">
-            Password
+          {translations[language].password}
           </label>
           <p className="error_registration">{ errors.password?.message}</p>
         </div>
         <button disabled={!isValid} className="submit" onClick={registration}>
-          submit
+        {translations[language].submit}
         </button>
         <button className="submit" onClick={auth?.signInWithGoogle}>
-          Register with Google
+        {translations[language].submit_2}
         </button>
         <p className="back_sign_in">
-          Already have an account?{' '}
+        {translations[language].back_sign_in}{' '}
           <Link to={LOGIN_ROUTE}>
-            <span>Login</span>
+            <span>{translations[language].submit_login}</span>
           </Link>{' '}
-          now.
+          {translations[language].now}
         </p>
       </form>
     </section>

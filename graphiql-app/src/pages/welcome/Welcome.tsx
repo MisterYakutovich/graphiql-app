@@ -10,7 +10,7 @@ function Welcome() {
       <section className="welcome">
         <div className="welcome_section_title">
           <h1 className="title">
-            General information <span>about</span> this project
+          {translations[language].title} <span> {translations[language].title_span}</span> {translations[language]. title_1}
           </h1>
           <div className="description">
             <p className="description_text">
@@ -48,29 +48,26 @@ function Welcome() {
           </div>
 
           <div className="course-description">
-            <h1 className="course-description_title">React Course</h1>
+            <h1 className="course-description_title"> {translations[language].course_description_title}</h1>
             <div className="description_wrapper">
               <p className="course-description_text">
-                Start date: October 23, 2023
+              {translations[language].course_description_text}
                 <br />
-                Students of the RS School from the 2022Q3, which has passed RS
-                School Stage #2 as well as new students with practical
-                experience and knowledge of:
+                {translations[language].course_description_text_1}
                 <br />
-                JavaScript;
+                {translations[language].course_description_text_2}
                 <br />
-                TypeScript;
+                {translations[language].course_description_text_3}
                 <br />
-                Git, GitHub (clone, add, commit, push, pull, merge, rebase,
-                working with Pull Request);
+                {translations[language].course_description_text_4}
                 <br />
-                NPM, Webpack;
+                {translations[language].course_description_text_5}
                 <br />
-                CSS3 / HTML5;
+                {translations[language].course_description_text_6}
                 <br />
-                Chrome DevTools, Figma;
+                {translations[language].course_description_text_7}
                 <br />
-                Understanding of the REST;
+                {translations[language].course_description_text_8}
               </p>
             </div>
           </div>
@@ -79,13 +76,13 @@ function Welcome() {
       <section className="about">
         <div className="about_section_title">
           <h2 className="about_title">
-            This project was developed by <span>frontend developers:</span>
+          {translations[language].about_title} <span>{translations[language].about_title_span}</span>
           </h2>
           <p className="about_description_text">
-            PAVEL YAKUTOVICH
+          {translations[language].about_description_text}
             <br />
-            STUDENT 2<br />
-            STUDENT 3
+            {translations[language].about_description_text_2}<br />
+            {translations[language].about_description_text_3}
           </p>
         </div>
       </section>
