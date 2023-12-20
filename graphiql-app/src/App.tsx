@@ -1,13 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import PrivateRoute from './routes/PrivateRoute';
 import {
   LOGIN_ROUTE,
   MAIN_ROUTE,
   REGISTRATION_ROUTE,
   WELCOME_ROUTE,
 } from './utils/consts';
-import PublicRoute from './routes/PublicRoute';
 import Login from './components/login/Login';
 import Welcome from './pages/welcome/Welcome';
 import Header from './components/header/Header';
@@ -49,7 +47,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Header/>
+        <Header />
         <Routes>
           <Route
             path={MAIN_ROUTE}

@@ -6,17 +6,13 @@ import {
   REGISTRATION_ROUTE,
   WELCOME_ROUTE,
 } from '../../utils/consts';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Context, useLanguage } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SwitchLanguages from '../localization/Languages';
 
-
-
 function Header() {
-  
   const auth = useContext(Context);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const { language, translations } = useLanguage();
   const [user, loading] = useAuthState(auth!.auth);
   const navigate = useNavigate();
@@ -28,27 +24,27 @@ function Header() {
   }, [user, loading]);
   return (
     <header className="header">
-    
       <div className="wrapper">
-     
         <div className="header_wrapper">
-        
           <nav className="header-nav_welcome">
             <ul>
               <Link to={WELCOME_ROUTE}>
-                <li className="header_link_welcome">{translations[language].welcome}</li>
+                <li className="header_link_welcome">
+                  {translations[language].welcome}
+                </li>
               </Link>
-              
             </ul>
-            <SwitchLanguages/>
+            <SwitchLanguages />
           </nav>
-         
+
           <nav className="navbar">
             <ul className="header_list">
               {user ? (
                 <>
                   <Link to={MAIN_ROUTE}>
-                    <button className="button">{translations[language].main}</button>
+                    <button className="button">
+                      {translations[language].main}
+                    </button>
                   </Link>
                   <button
                     onClick={() => auth?.auth.signOut()}
@@ -60,17 +56,20 @@ function Header() {
               ) : (
                 <>
                   <Link to={LOGIN_ROUTE}>
-                    <button className="button">{translations[language].signIn}</button>
+                    <button className="button">
+                      {translations[language].signIn}
+                    </button>
                   </Link>
                   <Link to={REGISTRATION_ROUTE}>
-                    <button className="button">{translations[language].signup}</button>
+                    <button className="button">
+                      {translations[language].signup}
+                    </button>
                   </Link>
                 </>
               )}
             </ul>
           </nav>
         </div>
-       
       </div>
     </header>
   );

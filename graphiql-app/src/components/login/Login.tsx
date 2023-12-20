@@ -20,10 +20,12 @@ function Login() {
   const [password, setPassword] = useState('');
 
   return (
-   
     <section className="section-form_login">
       <div className="form-login">
-        <div className="form-login_title"> {translations[language].form_login_title}</div>
+        <div className="form-login_title">
+          {' '}
+          {translations[language].form_login_title}
+        </div>
 
         <div className="input-container_login ic2">
           <input
@@ -35,7 +37,7 @@ function Login() {
           />
           <div className="cut cut-short_login"></div>
           <label htmlFor="email" className="placeholder">
-          {translations[language].email}
+            {translations[language].email}
           </label>
         </div>
         <div className="input-container_login ic2">
@@ -48,7 +50,7 @@ function Login() {
           />
           <div className="cut cut-short_login"></div>
           <label htmlFor="password" className="placeholder">
-          {translations[language].password}
+            {translations[language].password}
           </label>
         </div>
         <button
@@ -58,7 +60,7 @@ function Login() {
           {translations[language].submit_login}
         </button>
         <button className="submit_login" onClick={auth?.signInWithGoogle}>
-        {translations[language].submit_login_2}
+          {translations[language].submit_login_2}
         </button>
       </div>
     </section>

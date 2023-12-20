@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 
 const Main = () => {
   const [query, setQuery] = useState('');
@@ -24,7 +24,10 @@ const Main = () => {
   return (
     <div>
       <textarea value={query} onChange={(e) => setQuery(e.target.value)} />
-      <textarea value={variables} onChange={(e) => setVariables(e.target.value)} />
+      <textarea
+        value={variables}
+        onChange={(e) => setVariables(e.target.value)}
+      />
       <button onClick={executeQuery}>Execute</button>
       <pre>{result}</pre>
     </div>
@@ -32,7 +35,6 @@ const Main = () => {
 };
 
 export default Main;
-
 
 /*import React from 'react';
 import GraphiQL from "graphiql";

@@ -135,8 +135,9 @@
   margin-top: 10px;
   color: red;
 }
-.submit:disabled, .submit:hover:disabled {
-  background-color: rgba(0,0,0,.1);
-  border: 1px solid rgba(0, 0, 0, .1);
+.submit:disabled,
+.submit:hover:disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: not-allowed;
 }

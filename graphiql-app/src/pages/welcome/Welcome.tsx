@@ -4,17 +4,19 @@ import { useLanguage } from '../../main';
 
 function Welcome() {
   const { language, translations } = useLanguage();
-  console.log(language)
+  console.log(language);
   return (
     <>
       <section className="welcome">
         <div className="welcome_section_title">
           <h1 className="title">
-          {translations[language].title} <span> {translations[language].title_span}</span> {translations[language]. title_1}
+            {translations[language].title}{' '}
+            <span> {translations[language].title_span}</span>{' '}
+            {translations[language].title_1}
           </h1>
           <div className="description">
             <p className="description_text">
-            {translations[language].description_text}
+              {translations[language].description_text}
               <br />
               {translations[language].description_text_1}
               <br />
@@ -48,10 +50,13 @@ function Welcome() {
           </div>
 
           <div className="course-description">
-            <h1 className="course-description_title"> {translations[language].course_description_title}</h1>
+            <h1 className="course-description_title">
+              {' '}
+              {translations[language].course_description_title}
+            </h1>
             <div className="description_wrapper">
               <p className="course-description_text">
-              {translations[language].course_description_text}
+                {translations[language].course_description_text}
                 <br />
                 {translations[language].course_description_text_1}
                 <br />
@@ -76,12 +81,14 @@ function Welcome() {
       <section className="about">
         <div className="about_section_title">
           <h2 className="about_title">
-          {translations[language].about_title} <span>{translations[language].about_title_span}</span>
+            {translations[language].about_title}{' '}
+            <span>{translations[language].about_title_span}</span>
           </h2>
           <p className="about_description_text">
-          {translations[language].about_description_text}
+            {translations[language].about_description_text}
             <br />
-            {translations[language].about_description_text_2}<br />
+            {translations[language].about_description_text_2}
+            <br />
             {translations[language].about_description_text_3}
           </p>
         </div>
