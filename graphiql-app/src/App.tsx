@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import PublicRoute from './routes/PublicRoute';
 import {
   LOGIN_ROUTE,
   MAIN_ROUTE,
