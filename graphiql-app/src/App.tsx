@@ -22,7 +22,7 @@ import Main from './pages/main/Main';
 function App() {
   const auth = useContext(Context);
 
-  const [user, loading] = useAuthState(auth!.auth);
+  const [user, loadin] = useAuthState(auth!.auth);
   if (loading) {
     return <Loader />;
   }

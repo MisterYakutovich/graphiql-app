@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "preview": "vite preview",
-    "format:fix": "prettier . --write"
+    "format:fix": "prettier . --write",
+    "prepare": "husky install"
   },
   "prettier": {
     "endOfLine": "auto",
@@ -50,7 +51,7 @@
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
