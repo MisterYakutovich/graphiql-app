@@ -6,12 +6,12 @@ import {
   REGISTRATION_ROUTE,
   WELCOME_ROUTE,
 } from '../../utils/consts';
-import { useContext, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { Context, useLanguage } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SwitchLanguages from '../localization/Languages';
 
-function Header() {
+const Header: FC = () => {
   const auth = useContext(Context);
   const { language, translations } = useLanguage();
   const [user, loading] = useAuthState(auth!.auth);

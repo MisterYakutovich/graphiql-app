@@ -1,6 +1,8 @@
+import { FC } from 'react';
 import '../../assets/rs_school.svg';
 import './Footer.css';
-function Footer() {
+
+const Footer: FC = () => {
   return (
     <footer className="footer">
       <div className="footer_wrapper">

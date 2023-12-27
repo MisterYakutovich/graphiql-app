@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { Context, useLanguage } from '../../main';
 import './Login.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-function Login() {
+const Login: FC = () => {
   const { language, translations } = useLanguage();
   const auth = useContext(Context);
   const logInWithEmailAndPassword = async (email: string, password: string) => {

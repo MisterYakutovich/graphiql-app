@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import './Loader.css';
 
-function Loader() {
+const Loader: FC = () => {
   return (
     <>
       <span className="loader"></span>

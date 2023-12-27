@@ -6,7 +6,7 @@ interface LanguagesProps {}
 
 const SwitchLanguages: FC<LanguagesProps> = () => {
   const { language, changeLanguage } = useLanguage();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };

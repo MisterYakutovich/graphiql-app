@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import PublicRoute from './routes/PublicRoute';
 import {
   LOGIN_ROUTE,
   MAIN_ROUTE,
@@ -13,16 +12,19 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Page_404 from './pages/page_404/Page_404';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useContext } from 'react';
+import { FC, useContext } from 'react';
 import { Context } from './main';
 import Loader from './components/loader/Loader';
 import Register from './components/registration/Register';
 import Main from './pages/main/Main';
+import { QueryClient } from 'react-query';
 
-function App() {
+
+
+const App: FC = () => {
   const auth = useContext(Context);
 
-  const [user, loadin] = useAuthState(auth!.auth);
+  const [user, loading] = useAuthState(auth!.auth);
   if (loading) {
     return <Loader />;
   }

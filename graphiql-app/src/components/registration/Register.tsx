@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import './Register.css';
@@ -8,21 +8,17 @@ import { addDoc, collection } from 'firebase/firestore';
 import { LOGIN_ROUTE } from '../../utils/consts';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { IFormInput } from '../../types/interfase';
 
-export interface IFormInput {
-  firstName: string;
-  email: string;
-  password: string;
-}
 
-function Register() {
+
+const Register: FC = () => {
   const auth = useContext(Context);
   const { language, translations } = useLanguage();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
-  // const [user, loading] = useAuthState(auth!.auth);
   const [, setIsSubmitted] = useState(false);
   const onSubmit: SubmitHandler<IFormInput> = () => {
     setIsSubmitted(true);
