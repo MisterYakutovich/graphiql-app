@@ -20,12 +20,12 @@ import {
 } from 'firebase/firestore';
 import enData from '../src/components/localization/json/en.json';
 import ruData from '../src/components/localization/json/ru.json';
-import { LanguageContextProps, LanguageProviderProps, Translations } from './types/translate.ts';
+import {
+  LanguageContextProps,
+  LanguageProviderProps,
+  Translations,
+} from './types/translate.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
-
-
-
 
 const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
@@ -38,7 +38,6 @@ export const useLanguage = (): LanguageContextProps => {
   }
   return context;
 };
-
 
 export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguage] = useState<string>('EN');
@@ -105,11 +104,11 @@ export const Context = createContext<ContextValue | null>(null);
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <Context.Provider value={{ auth, db, signInWithGoogle }}>
-        <App />
-      </Context.Provider>
-    </LanguageProvider>
+      <LanguageProvider>
+        <Context.Provider value={{ auth, db, signInWithGoogle }}>
+          <App />
+        </Context.Provider>
+      </LanguageProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

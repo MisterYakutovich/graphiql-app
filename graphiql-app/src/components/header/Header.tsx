@@ -73,5 +73,5 @@ const Header: FC = () => {
       </div>
     </header>
   );
-}
+};
 export default Header;

@@ -18,10 +18,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-     //"noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-     
-
+    "noFallthroughCasesInSwitch": true
+    //"noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

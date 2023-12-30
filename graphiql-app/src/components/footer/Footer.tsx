@@ -36,5 +36,5 @@ const Footer: FC = () => {
       </div>
     </footer>
   );
-}
+};
 export default Footer;

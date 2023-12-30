@@ -10,8 +10,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IFormInput } from '../../types/interfase';
 
-
-
 const Register: FC = () => {
   const auth = useContext(Context);
   const { language, translations } = useLanguage();
@@ -161,5 +159,5 @@ const Register: FC = () => {
       </form>
     </section>
   );
-}
+};
 export default Register;

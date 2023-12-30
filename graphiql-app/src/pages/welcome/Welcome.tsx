@@ -95,5 +95,5 @@ const Welcome: FC = () => {
       </section>
     </>
   );
-}
+};
 export default Welcome;

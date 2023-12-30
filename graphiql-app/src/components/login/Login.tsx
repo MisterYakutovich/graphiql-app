@@ -65,5 +65,5 @@ const Login: FC = () => {
       </div>
     </section>
   );
-}
+};
 export default Login;

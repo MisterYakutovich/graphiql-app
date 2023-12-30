@@ -19,8 +19,6 @@ import Register from './components/registration/Register';
 import Main from './pages/main/Main';
 import { QueryClient } from 'react-query';
 
-
-
 const App: FC = () => {
   const auth = useContext(Context);
 
@@ -65,6 +63,6 @@ const App: FC = () => {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

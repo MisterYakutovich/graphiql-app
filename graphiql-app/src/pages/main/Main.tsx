@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import fetch from 'isomorphic-fetch';
-import "./Main.css"
+import './Main.css';
 
 interface SchemaType {
-  // Определите тип схемы здесь
+  data: {
+    __schema: {
+      types: Array<{
+        name: string;
+      }>;
+    };
+  };
 }
 const Main: React.FC = () => {
   const [query, setQuery] = useState<string>('');
@@ -12,83 +18,142 @@ const Main: React.FC = () => {
   const [response, setResponse] = useState<string | null>(null); // Определите тип ответа здесь
   const [apiUrl, setApiUrl] = useState<string>('');
   const [schema, setSchema] = useState<SchemaType | null>(null);
+  const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
 
-  const handleQueryChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const [showVariables, setShowVariables] = useState<boolean>(false);
+  const [showHeaders, setShowHeaders] = useState<boolean>(false);
+
+ // const [contentStyles, setContentStyles] = useState<string>('grid-template-columns: 50px 2fr 2fr');
+  const contentRef = useRef<HTMLDivElement>(null);
+  const documentationRef = useRef<HTMLDivElement>(null);
+  const variablesRef = useRef<HTMLDivElement>(null);
+  const headersRef = useRef<HTMLDivElement>(null);
+  const toggleVariables = () => {
+    setShowVariables(!showVariables);
+    if (showVariables) {
+      if (variablesRef.current) {
+        variablesRef.current.style.display = 'none';
+      }
+    } else {
+      if (variablesRef.current) {
+        variablesRef.current.style.display = 'block';
+      }
+      // Скрыть блок с заголовками
+      if (headersRef.current) {
+        headersRef.current.style.display = 'none';
+      }
+    }
+  };
+
+  const toggleHeaders = () => {
+    setShowHeaders(!showHeaders);
+    if (showHeaders) {
+      if (headersRef.current) {
+        headersRef.current.style.display = 'none';
+      }
+    } else {
+      if (headersRef.current) {
+        headersRef.current.style.display = 'block';
+      }
+      // Скрыть блок с переменными
+      if (variablesRef.current) {
+        variablesRef.current.style.display = 'none';
+      }
+    }
+  };
+  const toggleDocumentation = () => {
+    setShowDocumentation(!showDocumentation);
+
+    if (showDocumentation) {
+      // Скрыть блок .wrapper-main_documentation
+      if (documentationRef.current) {
+        documentationRef.current.style.display = 'none';
+      }
+      // Изменить стили блока .wrapper-main_content при скрытии
+      if (contentRef.current) {
+        contentRef.current.style.gridTemplateColumns = '50px 2fr 2fr';
+      }
+    } else {
+      // Показать блок .wrapper-main_documentation
+      if (documentationRef.current) {
+        documentationRef.current.style.display = 'block';
+      }
+      // Изменить стили блока .wrapper-main_content при показе
+      if (contentRef.current) {
+        contentRef.current.style.gridTemplateColumns = '50px 2fr 2fr 2fr';
+      }
+    }
+  };
+  const handleQueryChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
 
-  const handleVariablesChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleVariablesChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setVariables(event.target.value);
   };
 
-  const handleHeadersChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleHeadersChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setHeaders(event.target.value);
   };
 
-  const handleApiUrlChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleApiUrlChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setApiUrl(event.target.value);
   };
 
-  /*const executeQuery = () => {
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...JSON.parse(headers),
-      },
-      body: JSON.stringify({
-        query,
-        variables: JSON.parse(variables),
-      }),
-    })
-      .then((res: { json: () => any; }) => res.json())
-      .then((data: React.SetStateAction<null>) => {
-        setResponse(data);
-      })
-      .catch((error: any) => {
-        console.error('Error executing query:', error);
-      });
-  };*/
- /* async function executeQuery_1() {
-    let results = await fetch('https://countries.trevorblades.com/graphql', {
-      method: 'POST',  
-      headers: {
-        "Content-Type": "application/json"
-      },
-    //  body: JSON.stringify({
-      //  query,
-     //   variables: JSON.parse(variables),
-    //  }),
-      body: JSON.stringify({
-        query: `{
-          countries {
-            name
-          }
-        }`
-      })
-    })
-    let characters = await results.json();
-    console.log(characters.data)
-  }
-  executeQuery_1()*/
- 
-  async function executeQuery() {
+  /*async function executeQuery() {
     try {
       let results = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: query
-        })
+          query: query,
+        }),
       });
       let data = await results.json();
       setResponse(data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }
+  }*/
+  const executeQuery = async () => {
+    try {
+      let headersObject: { [key: string]: string } = {};
+      if (headers) {
+        const headersArray = headers.split(';');
+        headersArray.forEach(header => {
+          const [key, value] = header.split(':');
+          headersObject[key.trim()] = value.trim();
+        });
+      }
+  
+      let results = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...headersObject,
+        },
+        body: JSON.stringify({
+          query: query,
+          variables: variables ? JSON.parse(variables) : undefined,
+        }),
+      });
+  
+      let data = await results.json();
+      setResponse(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   useEffect(() => {
     if (apiUrl) {
       const fetchSchema = async () => {
@@ -96,7 +161,7 @@ const Main: React.FC = () => {
           let response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               query: `
@@ -107,8 +172,8 @@ const Main: React.FC = () => {
                     }
                   }
                 }
-              `
-            })
+              `,
+            }),
           });
           let data: SchemaType = await response.json();
           setSchema(data);
@@ -119,36 +184,71 @@ const Main: React.FC = () => {
       fetchSchema();
     }
   }, [apiUrl]);
+console.log(response)
   return (
-    <div className='wrapper-main'>
-       <div className='wrapper-main_apiUrl'>
-       <button onClick={executeQuery}>Execute</button>
-        <input type="text" value={apiUrl} onChange={handleApiUrlChange} />      
+    <div className="wrapper-main">
+      <div className="wrapper-main_apiUrl">
+        <button onClick={executeQuery}>Execute</button>
+        <input type="text" value={apiUrl} onChange={handleApiUrlChange} />
       </div>
-      <div className='wrapper-main_content'>
-      <div className='wrapper-main_json'>
-        {/* Display response here */}
-        <pre>{JSON.stringify(response, null, 2)}</pre>     
-      </div>
-      <div className='wrapper-main_query_variables'>
-      <div className='wrapper-main_query'>
-        <textarea value={query} onChange={handleQueryChange} />
-      </div>
-      <div className='wrapper-main_variables'>
-        <textarea value={variables} onChange={handleVariablesChange} />
-      </div>
-      <div className='wrapper-main_headers'>
-        <textarea value={headers} onChange={handleHeadersChange} />
-      </div>    
-      </div>
-     
-     
-      <div className='wrapper-main_documentation'>
-        {/* Отображение документации только после успешной загрузки схемы */}
-        {schema && (
-          <pre>{JSON.stringify(schema, null, 2)}</pre>
-        )}
-      </div>
+      <div className="wrapper-main_content" ref={contentRef}>
+        <div className='wrapper-main_content-slider'>
+          <div className='content-slider' onClick={toggleDocumentation}>
+          <button className='content-slider_documentation-button'>
+          <svg
+            height="1em"
+            viewBox="0 0 20 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>docs icon</title>
+            <path
+              d="M0.75 3C0.75 4.24264 1.75736 5.25 3 5.25H17.25M0.75 3C0.75 1.75736 1.75736 0.75 3 0.75H16.25C16.8023 0.75 17.25 1.19772 17.25 1.75V5.25M0.75 3V21C0.75 22.2426 1.75736 23.25 3 23.25H18.25C18.8023 23.25 19.25 22.8023 19.25 22.25V6.25C19.25 5.69771 18.8023 5.25 18.25 5.25H17.25"
+              stroke="currentColor"
+              stroke-width="1.5"
+            ></path>
+            <line
+              x1="13"
+              y1="11.75"
+              x2="6"
+              y2="11.75"
+              stroke="currentColor"
+              stroke-width="1.5"
+            ></line>
+          </svg>
+          </button>
+          </div>        
+        </div>     
+        {showDocumentation && <div className="wrapper-main_documentation" ref={documentationRef}> {schema?.data.__schema.types.map((i) => (
+            <pre key={i.name}>{i.name}</pre>
+          ))}</div>}
+                 
+        <div className="wrapper-main_sections">
+          <div className="sections-query">
+            <textarea className='sections-qiery_textarea' value={query} onChange={handleQueryChange} />
+          </div>
+          <div className="sections-buttons">
+           <div className='sections-buttons_items'>
+            <button onClick={toggleVariables} className='item_variables_headers'>Variables</button>
+            <button onClick={toggleHeaders} className='item_variables_headers'>Headers</button>
+           </div>
+          </div>
+          <div className="sections_headers_variables">
+            <section >
+              <div ref={headersRef} className='sections_headers_1' style={{ display: 'none' }}>
+              <textarea className='sections_headers_textarea' value={headers} onChange={handleHeadersChange} />
+              </div>
+              <div ref={variablesRef} className='sections_variables_1' style={{ display: 'none' }}>
+              <textarea className='sections_variables_textarea' value={variables} onChange={handleVariablesChange} />
+              </div>          
+            </section>
+          </div>
+        </div>
+        <div className="wrapper-main_json">
+          {/* Display response here */}
+          <pre>{JSON.stringify(response, null, 2)}</pre>
+        </div>
+       
       </div>
     </div>
   );
@@ -210,7 +310,6 @@ const Main: React.FC = () => {
 
 export default Main;*/
 
-
 /*import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
@@ -256,11 +355,11 @@ const Main: React.FC = () => {
       throw error;
     }
   });*/
- 
-  //const handleExecuteQuery = () => {
-   // refetch();
- // };
- /*const { isLoading, error, data, refetch } = useQuery(
+
+//const handleExecuteQuery = () => {
+// refetch();
+// };
+/*const { isLoading, error, data, refetch } = useQuery(
   'repoData',
   () =>
     fetch(
@@ -332,11 +431,6 @@ if (error) return <p>Ошибка: {error.message}</p>;*/
 };
 
 export default Main;*/
-
-
-
-
-
 
 /*import React from 'react';
 import GraphiQL from "graphiql";
