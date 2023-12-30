@@ -1,5 +1,5 @@
 import './Welcome.css';
-import '../../assets/rs_school.svg';
+//import '../../assets/rs_school.svg';
 import { useLanguage } from '../../main';
 import { FC } from 'react';
 

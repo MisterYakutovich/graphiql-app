@@ -40,9 +40,10 @@
   color: #41d87b;
 }
 .wrapper-main_json {
-  background-color: blue;
-  height: 100%;
+ border: 1px solid #717171;
+ font-size: 15px;
   border-radius: 8px;
+  color: #41d87b;
 }
 textarea {
   overflow: auto;
@@ -55,15 +56,16 @@ textarea {
 }
 
 .wrapper-main_documentation {
-  background-color: #41d87b;
-  height: 100%;
   border-radius: 8px;
   color: #e06733;
+  border-radius: 8px;
+  border: 1px solid #717171;
 }
 .wrapper-main_documentation pre {
   margin-left: 10px;
   margin-top: 5px;
   font-size: 15px;
+ 
 }
 .content-slider_documentation-button {	
 	height: 40px;
@@ -72,8 +74,14 @@ textarea {
 	display: block;
   margin: 0 auto;
 	margin-top: 10px;
+  transition: transform 0.5s;
+  border: 2px solid #41d87b;
 }
-
+.content-slider_documentation-button:hover {
+  transform: scale(1.1);
+  background-color:  #41d87b;
+  
+}
 .wrapper-main_content  {
 	display: grid;
   gap: 10px;
@@ -91,12 +99,16 @@ textarea {
     width: 85px;
     height: 28px;
     margin-right: 10px;
+    border: 1px solid #717171;
+    border-radius: 2px;
   }
   .sections-buttons {
    
   }
   .sections-qiery_textarea {
     border-radius: 8px 8px 0 0;
+    font-size: 15px;
+    color: #41d87b;
   }
   .sections-buttons_items {
     margin-top: 11px;
@@ -106,7 +118,9 @@ textarea {
     border: 1px solid #717171;
     border-radius: 8px;
     padding: 5px 5px 5px 5px;
+   
   }
+ 
   .sections_headers_variables section {
    height: 99%;
   }
@@ -114,15 +128,20 @@ textarea {
     height: 100%;
   }
   .sections_variables_textarea{
-   
+   font-size: 15px;
+   color: #e06733;
     border: none;
   }
   .sections_headers_textarea {
     border: none;
   }
   .sections_variables_1 textarea{
-    background-color: #e06733;
+    background-color: white;
   }
   .sections_headers_1 textarea{
-    background-color: blue;
+    font-size: 15px;
+   color: #e06733;
+  }
+  .hidden {
+    display: none;
   }

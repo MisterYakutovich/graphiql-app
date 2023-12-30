@@ -4,7 +4,7 @@ import './Loader.css';
 const Loader: FC = () => {
   return (
     <>
-      <span className="loader"></span>
+      <span data-testid="loader" className="loader"></span>
     </>
   );
 };

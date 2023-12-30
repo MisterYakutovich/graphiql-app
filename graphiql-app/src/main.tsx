@@ -1,5 +1,5 @@
 import React, { FC, createContext, useContext, useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './App.tsx';
 import './index.css';
 import { initializeApp } from 'firebase/app';
@@ -26,6 +26,7 @@ import {
   Translations,
 } from './types/translate.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
+
 
 const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
@@ -101,7 +102,19 @@ const signInWithGoogle = async () => {
 const queryClient = new QueryClient();
 export const Context = createContext<ContextValue | null>(null);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <Context.Provider value={{ auth, db, signInWithGoogle }}>
+          <App />
+        </Context.Provider>
+      </LanguageProvider>
+    </QueryClientProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+/*ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
@@ -111,4 +124,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </LanguageProvider>
     </QueryClientProvider>
   </React.StrictMode>
-);
+);*/

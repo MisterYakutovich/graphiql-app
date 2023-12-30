@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import '../../assets/rs_school.svg';
+//import '../../assets/rs_school.svg';
 import './Footer.css';
 
 const Footer: FC = () => {
   return (
-    <footer className="footer">
+    <footer data-testid="footer" className="footer">
       <div className="footer_wrapper">
         <div className="column-left">
           <ul className="column_left_list">

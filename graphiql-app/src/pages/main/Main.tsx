@@ -15,72 +15,68 @@ const Main: React.FC = () => {
   const [query, setQuery] = useState<string>('');
   const [variables, setVariables] = useState<string>('');
   const [headers, setHeaders] = useState<string>('');
-  const [response, setResponse] = useState<string | null>(null); // Определите тип ответа здесь
+  const [response, setResponse] = useState<string | null>(null); 
   const [apiUrl, setApiUrl] = useState<string>('');
   const [schema, setSchema] = useState<SchemaType | null>(null);
   const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
-
-  const [showVariables, setShowVariables] = useState<boolean>(false);
+  const [variablesButtonColor, setVariablesButtonColor] = useState<string>('#41d87b');
+  const [headersButtonColor, setHeadersButtonColor] = useState<string>('white');
+  const [showVariables, setShowVariables] = useState<boolean>(true);
   const [showHeaders, setShowHeaders] = useState<boolean>(false);
-
- // const [contentStyles, setContentStyles] = useState<string>('grid-template-columns: 50px 2fr 2fr');
   const contentRef = useRef<HTMLDivElement>(null);
   const documentationRef = useRef<HTMLDivElement>(null);
   const variablesRef = useRef<HTMLDivElement>(null);
   const headersRef = useRef<HTMLDivElement>(null);
+  
+
   const toggleVariables = () => {
-    setShowVariables(!showVariables);
-    if (showVariables) {
-      if (variablesRef.current) {
-        variablesRef.current.style.display = 'none';
-      }
-    } else {
-      if (variablesRef.current) {
-        variablesRef.current.style.display = 'block';
-      }
-      // Скрыть блок с заголовками
-      if (headersRef.current) {
-        headersRef.current.style.display = 'none';
-      }
+    setShowVariables(true);
+    setShowHeaders(false);
+    setVariablesButtonColor('#41d87b');
+    setHeadersButtonColor('white');
+
+    if (variablesRef.current) {
+      variablesRef.current.style.display = 'block';
+    }
+    if (headersRef.current) {
+      headersRef.current.style.display = 'none';
     }
   };
 
   const toggleHeaders = () => {
-    setShowHeaders(!showHeaders);
-    if (showHeaders) {
-      if (headersRef.current) {
-        headersRef.current.style.display = 'none';
-      }
-    } else {
-      if (headersRef.current) {
-        headersRef.current.style.display = 'block';
-      }
-      // Скрыть блок с переменными
-      if (variablesRef.current) {
-        variablesRef.current.style.display = 'none';
-      }
+    setShowVariables(false);
+    setShowHeaders(true);
+    setVariablesButtonColor('white');
+    setHeadersButtonColor('#41d87b');
+
+    if (variablesRef.current) {
+      variablesRef.current.style.display = 'none';
+    }
+    if (headersRef.current) {
+      headersRef.current.style.display = 'block';
     }
   };
+ 
   const toggleDocumentation = () => {
     setShowDocumentation(!showDocumentation);
 
     if (showDocumentation) {
-      // Скрыть блок .wrapper-main_documentation
+      
       if (documentationRef.current) {
         documentationRef.current.style.display = 'none';
       }
-      // Изменить стили блока .wrapper-main_content при скрытии
+     
       if (contentRef.current) {
         contentRef.current.style.gridTemplateColumns = '50px 2fr 2fr';
       }
     } else {
-      // Показать блок .wrapper-main_documentation
+      
       if (documentationRef.current) {
         documentationRef.current.style.display = 'block';
       }
-      // Изменить стили блока .wrapper-main_content при показе
+      
       if (contentRef.current) {
-        contentRef.current.style.gridTemplateColumns = '50px 2fr 2fr 2fr';
+        contentRef.current.style.gridTemplateColumns = '50px 1fr 2fr 2fr';
       }
     }
   };
@@ -108,23 +104,7 @@ const Main: React.FC = () => {
     setApiUrl(event.target.value);
   };
 
-  /*async function executeQuery() {
-    try {
-      let results = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: query,
-        }),
-      });
-      let data = await results.json();
-      setResponse(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }*/
+  
   const executeQuery = async () => {
     try {
       let headersObject: { [key: string]: string } = {};
@@ -184,12 +164,14 @@ const Main: React.FC = () => {
       fetchSchema();
     }
   }, [apiUrl]);
-console.log(response)
+
   return (
     <div className="wrapper-main">
       <div className="wrapper-main_apiUrl">
         <button onClick={executeQuery}>Execute</button>
+        <label>
         <input type="text" value={apiUrl} onChange={handleApiUrlChange} />
+        </label>
       </div>
       <div className="wrapper-main_content" ref={contentRef}>
         <div className='wrapper-main_content-slider'>
@@ -225,20 +207,22 @@ console.log(response)
                  
         <div className="wrapper-main_sections">
           <div className="sections-query">
+            <label>
             <textarea className='sections-qiery_textarea' value={query} onChange={handleQueryChange} />
+            </label>
           </div>
           <div className="sections-buttons">
            <div className='sections-buttons_items'>
-            <button onClick={toggleVariables} className='item_variables_headers'>Variables</button>
-            <button onClick={toggleHeaders} className='item_variables_headers'>Headers</button>
+            <button id='variables' onClick={toggleVariables} className='item_variables_headers' style={{ backgroundColor: variablesButtonColor }}>Variables</button>
+            <button id='headers' onClick={toggleHeaders} className='item_variables_headers' style={{ backgroundColor: headersButtonColor }}>Headers</button>
            </div>
           </div>
           <div className="sections_headers_variables">
             <section >
-              <div ref={headersRef} className='sections_headers_1' style={{ display: 'none' }}>
+              <div className={showHeaders ? 'sections_headers_1' : 'hidden'} ref={headersRef}>
               <textarea className='sections_headers_textarea' value={headers} onChange={handleHeadersChange} />
               </div>
-              <div ref={variablesRef} className='sections_variables_1' style={{ display: 'none' }}>
+              <div className={showVariables ? 'sections_variables_1' : 'hidden'} ref={variablesRef}>
               <textarea className='sections_variables_textarea' value={variables} onChange={handleVariablesChange} />
               </div>          
             </section>
@@ -256,6 +240,23 @@ console.log(response)
 
 export default Main;
 
+/*async function executeQuery() {
+    try {
+      let results = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: query,
+        }),
+      });
+      let data = await results.json();
+      setResponse(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }*/
 /*import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 

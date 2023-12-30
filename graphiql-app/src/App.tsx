@@ -17,7 +17,7 @@ import { Context } from './main';
 import Loader from './components/loader/Loader';
 import Register from './components/registration/Register';
 import Main from './pages/main/Main';
-import { QueryClient } from 'react-query';
+
 
 const App: FC = () => {
   const auth = useContext(Context);
@@ -27,24 +27,43 @@ const App: FC = () => {
     return <Loader />;
   }
 
-  /*
- <Routes>
-      <Route element={<PrivateRoute/>}>
-        <Route path={MAIN_ROUTE} element={<Qraphiql/>}/>
-      </Route>
-      <Route element={<PublicRoute/>}>
-        <Route path={LOGIN_ROUTE} element={<Login/>}/>
-        <Route path={WELCOME_ROUTE} element={<Welcome/>}/>
-      </Route>
-    </Routes>
-
-     <Routes>
-        <Route path={MAIN_ROUTE} element={isAuth ? <Qraphiql /> : <Navigate to={WELCOME_ROUTE} />} />
-        <Route path={WELCOME_ROUTE} element={<Welcome />} />
+  const renderRoutes = () => {
+    return (
+      <Routes>
+        <Route
+          path={MAIN_ROUTE}
+          element={user ? <Main /> : <Navigate to={LOGIN_ROUTE} />}
+        />
         <Route path={LOGIN_ROUTE} element={<Login />} />
-        <Route path='*' element={<Page_404/>}/>
+        <Route path={REGISTRATION_ROUTE} element={<Register />} />
+        <Route path={WELCOME_ROUTE} element={<Welcome />} />
+        <Route path="*" element={<Page_404 />} />
       </Routes>
-*/
+    );
+  };
+
+  return (
+    <>
+      <BrowserRouter>
+        <Header />
+        {renderRoutes()}
+        <Footer />
+      </BrowserRouter>
+    </>
+  );
+};
+
+export default App;
+
+/*const App: FC = () => {
+  const auth = useContext(Context);
+
+  const [user, loading] = useAuthState(auth!.auth);
+  if (loading) {
+    return <Loader />;
+  }
+
+ 
   return (
     <>
       <BrowserRouter>
@@ -65,4 +84,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export default App;*/
