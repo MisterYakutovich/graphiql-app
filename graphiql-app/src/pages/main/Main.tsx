@@ -15,11 +15,12 @@ const Main: React.FC = () => {
   const [query, setQuery] = useState<string>('');
   const [variables, setVariables] = useState<string>('');
   const [headers, setHeaders] = useState<string>('');
-  const [response, setResponse] = useState<string | null>(null); 
+  const [response, setResponse] = useState<string | null>(null);
   const [apiUrl, setApiUrl] = useState<string>('');
   const [schema, setSchema] = useState<SchemaType | null>(null);
   const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
-  const [variablesButtonColor, setVariablesButtonColor] = useState<string>('#41d87b');
+  const [variablesButtonColor, setVariablesButtonColor] =
+    useState<string>('#41d87b');
   const [headersButtonColor, setHeadersButtonColor] = useState<string>('white');
   const [showVariables, setShowVariables] = useState<boolean>(true);
   const [showHeaders, setShowHeaders] = useState<boolean>(false);
@@ -27,7 +28,6 @@ const Main: React.FC = () => {
   const documentationRef = useRef<HTMLDivElement>(null);
   const variablesRef = useRef<HTMLDivElement>(null);
   const headersRef = useRef<HTMLDivElement>(null);
-  
 
   const toggleVariables = () => {
     setShowVariables(true);
@@ -56,25 +56,23 @@ const Main: React.FC = () => {
       headersRef.current.style.display = 'block';
     }
   };
- 
+
   const toggleDocumentation = () => {
     setShowDocumentation(!showDocumentation);
 
     if (showDocumentation) {
-      
       if (documentationRef.current) {
         documentationRef.current.style.display = 'none';
       }
-     
+
       if (contentRef.current) {
         contentRef.current.style.gridTemplateColumns = '50px 2fr 2fr';
       }
     } else {
-      
       if (documentationRef.current) {
         documentationRef.current.style.display = 'block';
       }
-      
+
       if (contentRef.current) {
         contentRef.current.style.gridTemplateColumns = '50px 1fr 2fr 2fr';
       }
@@ -104,19 +102,18 @@ const Main: React.FC = () => {
     setApiUrl(event.target.value);
   };
 
-  
   const executeQuery = async () => {
     try {
-      let headersObject: { [key: string]: string } = {};
+      const headersObject: { [key: string]: string } = {};
       if (headers) {
         const headersArray = headers.split(';');
-        headersArray.forEach(header => {
+        headersArray.forEach((header) => {
           const [key, value] = header.split(':');
           headersObject[key.trim()] = value.trim();
         });
       }
-  
-      let results = await fetch(apiUrl, {
+
+      const results = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,8 +124,8 @@ const Main: React.FC = () => {
           variables: variables ? JSON.parse(variables) : undefined,
         }),
       });
-  
-      let data = await results.json();
+
+      const data = await results.json();
       setResponse(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -138,7 +135,7 @@ const Main: React.FC = () => {
     if (apiUrl) {
       const fetchSchema = async () => {
         try {
-          let response = await fetch(apiUrl, {
+          const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -155,7 +152,7 @@ const Main: React.FC = () => {
               `,
             }),
           });
-          let data: SchemaType = await response.json();
+          const data: SchemaType = await response.json();
           setSchema(data);
         } catch (error) {
           console.error('Error fetching schema:', error);
@@ -169,62 +166,98 @@ const Main: React.FC = () => {
     <div className="wrapper-main">
       <div className="wrapper-main_apiUrl">
         <button onClick={executeQuery}>Execute</button>
-        <label>
+
         <input type="text" value={apiUrl} onChange={handleApiUrlChange} />
-        </label>
       </div>
       <div className="wrapper-main_content" ref={contentRef}>
-        <div className='wrapper-main_content-slider'>
-          <div className='content-slider' onClick={toggleDocumentation}>
-          <button className='content-slider_documentation-button'>
-          <svg
-            height="1em"
-            viewBox="0 0 20 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>docs icon</title>
-            <path
-              d="M0.75 3C0.75 4.24264 1.75736 5.25 3 5.25H17.25M0.75 3C0.75 1.75736 1.75736 0.75 3 0.75H16.25C16.8023 0.75 17.25 1.19772 17.25 1.75V5.25M0.75 3V21C0.75 22.2426 1.75736 23.25 3 23.25H18.25C18.8023 23.25 19.25 22.8023 19.25 22.25V6.25C19.25 5.69771 18.8023 5.25 18.25 5.25H17.25"
-              stroke="currentColor"
-              stroke-width="1.5"
-            ></path>
-            <line
-              x1="13"
-              y1="11.75"
-              x2="6"
-              y2="11.75"
-              stroke="currentColor"
-              stroke-width="1.5"
-            ></line>
-          </svg>
-          </button>
-          </div>        
-        </div>     
-        {showDocumentation && <div className="wrapper-main_documentation" ref={documentationRef}> {schema?.data.__schema.types.map((i) => (
-            <pre key={i.name}>{i.name}</pre>
-          ))}</div>}
-                 
+        <div className="wrapper-main_content-slider">
+          <div className="content-slider" onClick={toggleDocumentation}>
+            <button className="content-slider_documentation-button">
+              <svg
+                height="1em"
+                viewBox="0 0 20 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>docs icon</title>
+                <path
+                  d="M0.75 3C0.75 4.24264 1.75736 5.25 3 5.25H17.25M0.75 3C0.75 1.75736 1.75736 0.75 3 0.75H16.25C16.8023 0.75 17.25 1.19772 17.25 1.75V5.25M0.75 3V21C0.75 22.2426 1.75736 23.25 3 23.25H18.25C18.8023 23.25 19.25 22.8023 19.25 22.25V6.25C19.25 5.69771 18.8023 5.25 18.25 5.25H17.25"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ></path>
+                <line
+                  x1="13"
+                  y1="11.75"
+                  x2="6"
+                  y2="11.75"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        {showDocumentation && (
+          <div className="wrapper-main_documentation" ref={documentationRef}>
+            {' '}
+            {schema?.data.__schema.types.map((i) => (
+              <pre key={i.name}>{i.name}</pre>
+            ))}
+          </div>
+        )}
+
         <div className="wrapper-main_sections">
           <div className="sections-query">
             <label>
-            <textarea className='sections-qiery_textarea' value={query} onChange={handleQueryChange} />
+              <textarea
+                className="sections-qiery_textarea"
+                value={query}
+                onChange={handleQueryChange}
+              />
             </label>
           </div>
           <div className="sections-buttons">
-           <div className='sections-buttons_items'>
-            <button id='variables' onClick={toggleVariables} className='item_variables_headers' style={{ backgroundColor: variablesButtonColor }}>Variables</button>
-            <button id='headers' onClick={toggleHeaders} className='item_variables_headers' style={{ backgroundColor: headersButtonColor }}>Headers</button>
-           </div>
+            <div className="sections-buttons_items">
+              <button
+                id="variables"
+                onClick={toggleVariables}
+                className="item_variables_headers"
+                style={{ backgroundColor: variablesButtonColor }}
+              >
+                Variables
+              </button>
+              <button
+                id="headers"
+                onClick={toggleHeaders}
+                className="item_variables_headers"
+                style={{ backgroundColor: headersButtonColor }}
+              >
+                Headers
+              </button>
+            </div>
           </div>
           <div className="sections_headers_variables">
-            <section >
-              <div className={showHeaders ? 'sections_headers_1' : 'hidden'} ref={headersRef}>
-              <textarea className='sections_headers_textarea' value={headers} onChange={handleHeadersChange} />
+            <section>
+              <div
+                className={showHeaders ? 'sections_headers_1' : 'hidden'}
+                ref={headersRef}
+              >
+                <textarea
+                  className="sections_headers_textarea"
+                  value={headers}
+                  onChange={handleHeadersChange}
+                />
               </div>
-              <div className={showVariables ? 'sections_variables_1' : 'hidden'} ref={variablesRef}>
-              <textarea className='sections_variables_textarea' value={variables} onChange={handleVariablesChange} />
-              </div>          
+              <div
+                className={showVariables ? 'sections_variables_1' : 'hidden'}
+                ref={variablesRef}
+              >
+                <textarea
+                  className="sections_variables_textarea"
+                  value={variables}
+                  onChange={handleVariablesChange}
+                />
+              </div>
             </section>
           </div>
         </div>
@@ -232,7 +265,6 @@ const Main: React.FC = () => {
           {/* Display response here */}
           <pre>{JSON.stringify(response, null, 2)}</pre>
         </div>
-       
       </div>
     </div>
   );

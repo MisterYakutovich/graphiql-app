@@ -3,13 +3,15 @@
   height: 130px;
   left: 0px;
   top: 0px;
-  background-color: #ffffff;
+  padding: 20px;
+  background-color: #f0f0f0;
 }
 .footer_wrapper {
-  position: relative;
-  top: 40px;
+  display: flex;
   max-width: 1222px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
   height: 50px;
   border-width: medium;
 }
@@ -19,9 +21,9 @@
   text-align: center;
 }
 .column-right {
-  position: relative;
+  /*position: relative;*/
   bottom: 40px;
-  float: right;
+  /*float: right;*/
   width: 100px;
   text-align: center;
 }
@@ -93,4 +95,91 @@
   padding: 0;
   margin: 0;
   height: 50px;
+}
+
+@media (max-width: 767px) {
+  .left_list_item span {
+    font-size: 20px;
+  }
+  .left_list_item,
+  .github {
+    font-size: 20px;
+  }
+  .column-center a {
+    font-size: 20px;
+  }
+  .column-right {
+    width: 80px;
+    margin-top: 10px;
+  }
+  .left_list_item:last-child {
+    margin-right: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .footer {
+    padding: 10px;
+  }
+  .column-center a {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .column-right {
+    margin-top: 15px;
+  }
+  .column-center {
+    text-align: center;
+    margin-top: 10px;
+    width: 130px;
+  }
+  .column-left {
+    width: 122px;
+  }
+}
+@media (max-width: 530px) {
+  .left_list_item:last-child {
+    margin-right: 40px;
+  }
+  .column-center a {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .left_list_item span {
+    font-size: 18px;
+  }
+  .left_list_item,
+  .github {
+    font-size: 18px;
+  }
+  .column-right {
+    width: 60px;
+  }
+}
+@media (max-width: 450px) {
+  .footer {
+    padding: 5px;
+  }
+  .column-center a {
+    font-size: 14px;
+  }
+  .column-center {
+    width: 123px;
+  }
+  .left_list_item span {
+    font-size: 14px;
+  }
+  .left_list_item,
+  .github {
+    font-size: 14px;
+  }
+  .column-right {
+    width: 50px;
+  }
+  .left_list_item:last-child {
+    margin-right: 90px;
+  }
+  .column-left {
+    width: 90px;
+  }
 }

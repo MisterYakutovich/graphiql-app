@@ -18,7 +18,6 @@ import Loader from './components/loader/Loader';
 import Register from './components/registration/Register';
 import Main from './pages/main/Main';
 
-
 const App: FC = () => {
   const auth = useContext(Context);
 

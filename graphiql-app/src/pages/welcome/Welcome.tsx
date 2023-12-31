@@ -86,10 +86,6 @@ const Welcome: FC = () => {
           </h2>
           <p className="about_description_text">
             {translations[language].about_description_text}
-            <br />
-            {translations[language].about_description_text_2}
-            <br />
-            {translations[language].about_description_text_3}
           </p>
         </div>
       </section>

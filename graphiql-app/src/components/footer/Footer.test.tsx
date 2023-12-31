@@ -17,22 +17,24 @@ describe('<Footer />', () => {
     expect(footerElement).toBeInTheDocument();
     expect(footerElement).toHaveClass('footer');
 
-   
     const currentYear = new Date().getFullYear().toString();
     const yearElement = screen.getByText(currentYear);
     expect(yearElement).toBeInTheDocument();
 
-   
     const githubLink = screen.getByText('Github');
     expect(githubLink).toBeInTheDocument();
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/MisterYakutovich');
+    expect(githubLink).toHaveAttribute(
+      'href',
+      'https://github.com/MisterYakutovich'
+    );
 
-   
     const rollingScopesLink = screen.getByText('Rolling Scopes School');
     expect(rollingScopesLink).toBeInTheDocument();
-    expect(rollingScopesLink).toHaveAttribute('href', 'https://rs.school/react/');
+    expect(rollingScopesLink).toHaveAttribute(
+      'href',
+      'https://rs.school/react/'
+    );
 
-   
     const svgLogo = screen.getByTitle('rs_school');
     expect(svgLogo).toBeInTheDocument();
   });

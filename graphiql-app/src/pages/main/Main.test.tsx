@@ -25,7 +25,6 @@ describe('executeQuery', () => {
   });
 });
 
-
 /*describe('executeQuery', () => {
   it('should make an asynchronous request and update the response state', async () => {
     render(<Main />);

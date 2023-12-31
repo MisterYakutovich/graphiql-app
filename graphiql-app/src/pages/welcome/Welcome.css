@@ -1,13 +1,15 @@
 .welcome {
   position: relative;
-  height: 532px;
+  /*height: 532px;*/
+  height: 145vh;
   left: 0px;
   top: 0px;
   background-color: #cbdfc7;
+  padding: 0 30px;
 }
 .welcome_section_title {
   position: relative;
-  height: 500px;
+
   top: 32px;
   max-width: 1222px;
   margin: 0 auto;
@@ -18,27 +20,28 @@
   height: 101px;
   font-family: 'Inter';
   font-style: normal;
-  font-size: 45px;
+  font-size: 4vw;
   font-weight: 700;
   color: #717171;
-  line-height: 50px;
 }
 .title span {
   color: beige;
 }
 .description {
   position: relative;
-  width: 800px;
-  height: 105px;
-  margin: 0 auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
   text-align: center;
 }
 .description_text {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 23px;
-  line-height: 35px;
+  font-size: 24px;
+
+  line-height: 1.5;
   color: #636060;
 }
 .about {
@@ -47,12 +50,13 @@
   left: 0px;
   top: 0px;
   background-color: beige;
+  padding: 0 30px;
 }
 .about_section_title {
   position: relative;
-  top: 75px;
-  width: 700px;
-  height: 350px;
+  top: 130px;
+  width: 80%;
+
   margin: 0 auto;
   text-align: center;
 }
@@ -75,7 +79,7 @@
   color: #636060;
   margin-top: 40px;
 }
-.about-course {
+/*.about-course {
   position: relative;
   height: 650px;
   left: 0px;
@@ -98,10 +102,10 @@
   width: 300px;
   height: 150px;
   left: 0px;
-}
+}*/
 .course-description {
   position: relative;
-  width: 700px;
+  /*width: 700px;*/
   height: 340px;
   top: 36px;
 }
@@ -128,4 +132,101 @@
   line-height: 35px;
   color: #636060;
   text-align: center;
+}
+
+/*---*/
+.about-course {
+  padding: 20px 20px;
+  background-color: #f2f2f2;
+  height: 850px;
+}
+
+.about-course_wrapper {
+  max-width: 90%; /* Используем проценты */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-course_img {
+  width: 40%; /* Чтобы изображение было адаптивным */
+  max-width: 320px; /* Устанавливаем максимальную ширину */
+  margin-bottom: 20px;
+}
+
+/* Медиа-запрос для минимальной ширины страницы в 320 пикселей */
+@media (min-width: 320px) {
+  .about-course_wrapper {
+    max-width: 100%; /* Используем проценты */
+    padding: 0 10px; /* Добавляем отступы по бокам */
+  }
+
+  .about-course_img {
+    max-width: 100%; /* Чтобы изображение было адаптивным */
+    margin-bottom: 20px;
+  }
+}
+/*---*/
+
+@media screen and (max-width: 767px) {
+  .welcome_section_title {
+    top: 0;
+  }
+  .title {
+    height: 70px;
+  }
+  .description_text {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 860px) {
+  .about_title {
+    font-size: 27px;
+    line-height: 40px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .title {
+    height: 50px;
+  }
+
+  .description_text {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .description_text {
+    font-size: 16px;
+  }
+  .course-description_text {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .about-course {
+    height: 650px;
+  }
+  .course-description_title {
+    font-size: 30px;
+    line-height: 35px;
+  }
+  .course-description {
+    top: 0;
+  }
+  .description_wrapper {
+    margin-top: 30px;
+  }
+  .about_description_text {
+    margin-top: 70px;
+    font-size: 20px;
+  }
+  .about_title {
+    height: 150px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .title {
+    height: 40px;
+  }
 }

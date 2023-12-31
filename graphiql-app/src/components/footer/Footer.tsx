@@ -19,7 +19,9 @@ const Footer: FC = () => {
           </ul>
         </div>
         <div className="column-center">
-          <a href="https://rs.school/react/">Rolling Scopes School</a>
+          <a href="https://rs.school/react/">
+            Rolling Scopes <span>School</span>
+          </a>
         </div>
         <div className="column-right">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 552.85 198.67">

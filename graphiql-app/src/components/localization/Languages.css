@@ -43,3 +43,41 @@
 .show {
   display: block;
 }
+@media screen and (max-width: 767px) {
+  .dropbtn {
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  .dropdown-content {
+    width: 30px;
+    margin-top: 5px;
+    margin-left: 33px;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  .dropdown-content li {
+    padding: 7px 7px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .dropbtn {
+    border-radius: 5px;
+    margin-left: 20px;
+  }
+  .dropdown-content {
+    margin-left: 25px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .dropbtn {
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 12px;
+  }
+  .dropdown-content {
+    margin-left: 15px;
+  }
+  .dropdown-content li {
+    font-size: 12px;
+  }
+}

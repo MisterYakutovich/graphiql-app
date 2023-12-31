@@ -27,7 +27,6 @@ import {
 } from './types/translate.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-
 const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
 );
