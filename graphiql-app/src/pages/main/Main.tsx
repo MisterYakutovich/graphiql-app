@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 import fetch from 'isomorphic-fetch';
 import './Main.css';
+import Documentation from '../../components/documentation/Documentation';
 
-interface SchemaType {
+export interface SchemaType {
   data: {
     __schema: {
       types: Array<{
@@ -11,13 +12,30 @@ interface SchemaType {
     };
   };
 }
+
 const Main: React.FC = () => {
-  const [query, setQuery] = useState<string>('');
-  const [variables, setVariables] = useState<string>('');
-  const [headers, setHeaders] = useState<string>('');
-  const [response, setResponse] = useState<string | null>(null);
-  const [apiUrl, setApiUrl] = useState<string>('');
-  const [schema, setSchema] = useState<SchemaType | null>(null);
+  const saveDataToLocalStorage = (key: string, value: string): void => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+  const loadDataFromLocalStorage = (key: string): string | null => {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  };
+  const [query, setQuery] = useState<string>(
+    loadDataFromLocalStorage('query') || ''
+  );
+  const [variables, setVariables] = useState<string>(
+    loadDataFromLocalStorage('variables') || ''
+  );
+  const [headers, setHeaders] = useState<string>(
+    loadDataFromLocalStorage('headers') || ''
+  );
+  const [response, setResponse] = useState<string | null>(
+    loadDataFromLocalStorage('response') || null
+  );
+  const [apiUrl, setApiUrl] = useState<string>(
+    loadDataFromLocalStorage('apiUrl') || ''
+  );
   const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
   const [variablesButtonColor, setVariablesButtonColor] =
     useState<string>('#41d87b');
@@ -66,7 +84,7 @@ const Main: React.FC = () => {
       }
 
       if (contentRef.current) {
-        contentRef.current.style.gridTemplateColumns = '50px 2fr 2fr';
+        contentRef.current.style.gridTemplateColumns = '0.2fr 2fr 2fr';
       }
     } else {
       if (documentationRef.current) {
@@ -74,35 +92,41 @@ const Main: React.FC = () => {
       }
 
       if (contentRef.current) {
-        contentRef.current.style.gridTemplateColumns = '50px 1fr 2fr 2fr';
+        contentRef.current.style.gridTemplateColumns = '0.2fr 1.5fr 2fr 2fr';
       }
     }
   };
-  const handleQueryChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setQuery(event.target.value);
+  const handleQueryChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    const value = event.target.value;
+    setQuery(value);
+    saveDataToLocalStorage('query', value);
   };
 
-  const handleVariablesChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setVariables(event.target.value);
+  const handleVariablesChange = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    const value = event.target.value;
+    setVariables(value);
+    saveDataToLocalStorage('variables', value);
   };
 
-  const handleHeadersChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setHeaders(event.target.value);
+  const handleHeadersChange = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    const value = event.target.value;
+    setHeaders(value);
+    saveDataToLocalStorage('headers', value);
   };
 
-  const handleApiUrlChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setApiUrl(event.target.value);
+  const handleApiUrlChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    // setApiUrl(event.target.value);
+    const value = event.target.value;
+    setApiUrl(value);
+    saveDataToLocalStorage('apiUrl', value);
   };
 
   const executeQuery = async () => {
+    //let results = await fetch('https://rickandmortyapi.com/graphql'
     try {
       const headersObject: { [key: string]: string } = {};
       if (headers) {
@@ -127,40 +151,15 @@ const Main: React.FC = () => {
 
       const data = await results.json();
       setResponse(data);
+
+      //
+      saveDataToLocalStorage('response', data);
+
+      //
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-  useEffect(() => {
-    if (apiUrl) {
-      const fetchSchema = async () => {
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              query: `
-                {
-                  __schema {
-                    types {
-                      name
-                    }
-                  }
-                }
-              `,
-            }),
-          });
-          const data: SchemaType = await response.json();
-          setSchema(data);
-        } catch (error) {
-          console.error('Error fetching schema:', error);
-        }
-      };
-      fetchSchema();
-    }
-  }, [apiUrl]);
 
   return (
     <div className="wrapper-main">
@@ -197,14 +196,7 @@ const Main: React.FC = () => {
             </button>
           </div>
         </div>
-        {showDocumentation && (
-          <div className="wrapper-main_documentation" ref={documentationRef}>
-            {' '}
-            {schema?.data.__schema.types.map((i) => (
-              <pre key={i.name}>{i.name}</pre>
-            ))}
-          </div>
-        )}
+        {showDocumentation && <Documentation apiUrl={apiUrl} />}
 
         <div className="wrapper-main_sections">
           <div className="sections-query">
@@ -271,247 +263,3 @@ const Main: React.FC = () => {
 };
 
 export default Main;
-
-/*async function executeQuery() {
-    try {
-      let results = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: query,
-        }),
-      });
-      let data = await results.json();
-      setResponse(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }*/
-/*import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-
-const Main: React.FC = () => {
-  const [query, setQuery] = useState('');
-  const [response, setResponse] = useState('');
-
-  const handleQueryChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuery(event.target.value);
-  };
-
-  async function getCharacters() {
-    let results = await fetch('https://rickandmortyapi.com/graphql', {
-      method: 'POST',
-  
-      headers: {
-        "Content-Type": "application/json"
-      },
-  
-      body: JSON.stringify({
-        query: `{
-          characters {
-            results {
-              name
-            }
-          }
-        }`
-      })
-    })
-    let characters = await results.json();
-    console.log(characters.data)
-  }
-  
-  getCharacters()
-
-  return (
-    <div>
-      <div>
-        <label>GraphQL Query:</label>
-        <textarea value={query} onChange={handleQueryChange} />
-      </div>
-      <div>
-        <button onClick={getCharacters}>Execute Query</button>
-      </div>
-      <div>
-        <label>Response:</label>
-        <pre>{response}</pre>
-      </div>
-    </div>
-  );
-};
-
-export default Main;*/
-
-/*import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-
-const Main: React.FC = () => {
- 
-  const [query, setQuery] = useState('');
-  const [variables, setVariables] = useState('');
-  const [headers, setHeaders] = useState('');
-  const [apiEndpoint, setApiEndpoint] = useState('');
-  const [response, setResponse] = useState('');
-
-  const handleQueryChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleVariablesChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setVariables(event.target.value);
-  };
-
-  const handleHeadersChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setHeaders(event.target.value);
-  };
-
-  const handleApiEndpointChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setApiEndpoint(event.target.value);
-  };
-
- /* const { isLoading, error, data, refetch } = useQuery('queryData', async () => {
-    try {
-     
-     const url = `${apiEndpoint}?query=${encodeURIComponent(query)}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          ...JSON.parse(headers),
-        },
-      });
-      const responseData = await response.json();
-      return responseData;
-    } catch (error) {
-     // console.error('Error fetching data:', error);
-      throw error;
-    }
-  });*/
-
-//const handleExecuteQuery = () => {
-// refetch();
-// };
-/*const { isLoading, error, data, refetch } = useQuery(
-  'repoData',
-  () =>
-    fetch(
-      'https://api.github.com/repos/tannerlinsley/react-query'
-    ).then((response) => response.json())
-    
-    
-);
-console.log(data)
-
-if (isLoading) return <p>Загрузка...</p>;
-
-if (error) return <p>Ошибка: {error.message}</p>;*/
-/*const { isLoading, error, data, refetch } = useQuery(
-  'queryData',
-  async () => {
-    try {
-      const parsedHeaders = headers ? JSON.parse(headers) : {}; // Парсим заголовки
-      const parsedVariables = variables ? JSON.parse(variables) : {}; // Парсим переменные
-
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...parsedHeaders, // Используем разобранные заголовки
-        },
-        body: JSON.stringify({
-          query,
-          variables: parsedVariables, // Используем разобранные переменные
-        }),
-      });
-      const responseData = await response.json();
-      return responseData;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-    }
-  },
-  {
-    enabled: false,
-  }
-);
-  return (
-    <div>
-      <div>
-        <label>API Endpoint:</label>
-        <input type="text" value={apiEndpoint} onChange={handleApiEndpointChange} />
-      </div>
-      <div>
-        <label>Query:</label>
-        <textarea value={query} onChange={handleQueryChange} />
-      </div>
-      <div>
-        <label>Variables:</label>
-        <textarea value={variables} onChange={handleVariablesChange} />
-      </div>
-      <div>
-        <label>Headers:</label>
-        <textarea value={headers} onChange={handleHeadersChange} />
-      </div>
-      <div>
-      <button onClick={handleExecuteQuery}>Execute</button>
-      </div>
-      <div>
-        <pre> <pre>{JSON.stringify(data, null, 2)}</pre></pre>
-      </div>
-    </div>
-  );
-};
-
-export default Main;*/
-
-/*import React from 'react';
-import GraphiQL from "graphiql";
-import 'graphiql/graphiql.min.css';
-
-interface GraphiQLPlaygroundProps {
-  endpoint: string;
-}
-
-
-  function Main({endpoint}:GraphiQLPlaygroundProps) {
-    console.log(endpoint)
-  const [query, setQuery] = React.useState('');
-  const [variables, setVariables] = React.useState('');
-
-  const handleQueryChange = (newQuery: string) => {
-    setQuery(newQuery);
-  };
-
-  const handleVariableChange = (newVariables: string) => {
-    setVariables(newVariables);
-  };
-
-  return (
-    <div>
-      <GraphiQL
-        fetcher={graphQLFetcher.bind(null, endpoint)}
-        query={query}
-        variables={variables}
-        onEditQuery={handleQueryChange}
-        onEditVariables={handleVariableChange}
-      />
-      <textarea
-        value={variables}
-        onChange={(e) => handleVariableChange(e.target.value)}
-        placeholder="Enter variables in JSON format"
-      />
-    </div>
-  );
-};
-
-function graphQLFetcher(endpoint: string, graphQLParams: string) {
-  // Здесь можно отправить запрос к серверу GraphQL с использованием graphQLParams
-  return fetch(endpoint, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(graphQLParams),
-  }).then((response) => response.json());
-}
-
-export default Main;*/

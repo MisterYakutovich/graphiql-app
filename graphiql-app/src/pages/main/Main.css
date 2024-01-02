@@ -41,6 +41,7 @@
   font-size: 15px;
   border-radius: 8px;
   color: #41d87b;
+  overflow-x: auto;
 }
 textarea {
   overflow: auto;
@@ -52,17 +53,18 @@ textarea {
   outline: none;
 }
 
-.wrapper-main_documentation {
+/*.wrapper-main_documentation {
   border-radius: 8px;
   color: #e06733;
   border-radius: 8px;
   border: 1px solid #717171;
+  overflow-x: auto;
 }
 .wrapper-main_documentation pre {
   margin-left: 10px;
   margin-top: 5px;
   font-size: 15px;
-}
+}*/
 .content-slider_documentation-button {
   height: 40px;
   width: 40px;
@@ -91,9 +93,9 @@ textarea {
 .item_variables_headers {
   cursor: pointer;
   font-size: 14px;
-  width: 85px;
+  width: 48%;
   height: 28px;
-  margin-right: 10px;
+
   border: 1px solid #717171;
   border-radius: 2px;
 }
@@ -104,7 +106,11 @@ textarea {
 }
 .sections-buttons_items {
   margin-top: 11px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
 }
+
 .sections_headers_variables {
   height: 100px;
   border: 1px solid #717171;
@@ -142,12 +148,62 @@ textarea {
   }
 }
 @media screen and (max-width: 600px) {
+  .wrapper-main {
+    padding: 0 5px;
+  }
   .wrapper-main_apiUrl {
     width: 60%;
+  }
+  /*.wrapper-main_documentation pre {
+    font-size: 12px;
+  }*/
+  .item_variables_headers {
+    font-size: 12px;
+    width: 40%;
+  }
+  .content-slider_documentation-button {
+    width: 30px;
+    height: 30px;
+  }
+  .sections-qiery_textarea {
+    font-size: 12px;
+  }
+  .wrapper-main_json {
+    font-size: 12px;
+  }
+  .sections_variables_textarea {
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 450px) {
   .wrapper-main_apiUrl button {
     width: 30%;
+    font-size: 12px;
+  }
+  .item_variables_headers {
+    font-size: 10px;
+  }
+  .content-slider_documentation-button {
+    width: 22px;
+    height: 22px;
+  }
+  /*.wrapper-main_documentation pre {
+    font-size: 11px;
+  }*/
+  .sections-qiery_textarea {
+    font-size: 10px;
+    line-height: 11px;
+  }
+  .wrapper-main_json {
+    font-size: 11px;
+  }
+  .sections_variables_1 textarea {
+    font-size: 10px;
+    line-height: 8px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .item_variables_headers {
+    font-size: 8px;
   }
 }
