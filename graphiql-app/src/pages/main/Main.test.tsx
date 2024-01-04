@@ -1,51 +1,51 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { render, fireEvent } from '@testing-library/react';
 import Main from './Main';
 import '@testing-library/jest-dom';
 
-describe('executeQuery', () => {
-  it('should make an asynchronous request and update the response state', async () => {
-    render(<Main />);
+test('сохранение и получение данных из localStorage', () => {
+  const { getByTestId } = render(<Main />);
 
-    // Здесь вы можете получить доступ к вашему компоненту и симулировать ввод данных
-    const queryInput = screen.getByLabelText('Query');
-    userEvent.type(queryInput, 'Your test query here');
+  // Получаем элемент textarea по data-testid
+  const queryInput = getByTestId('query-input') as HTMLTextAreaElement;
 
-    const apiUrlInput = screen.getByLabelText('API URL');
-    userEvent.type(apiUrlInput, 'Your test API URL here');
+  // Симулируем изменение значения в поле ввода запроса
+  fireEvent.change(queryInput, { target: { value: 'New request' } });
 
-    // Нажмите кнопку для выполнения запроса
-    const executeButton = screen.getByText('Execute');
-    userEvent.click(executeButton);
+  // Проверяем, что значение было сохранено в localStorage
+  expect(localStorage.getItem('query')).toEqual(JSON.stringify('New request'));
 
-    // Дождитесь обновления состояния response
-    await waitFor(() => {
-      expect(screen.getByText('Your expected response')).toBeInTheDocument();
-    });
-  });
+  // Проверяем, что значение из localStorage было загружено и отображено в поле ввода запроса
+  const loadedQuery = localStorage.getItem('query');
+  expect(loadedQuery).toEqual(JSON.stringify(queryInput.value));
 });
 
-/*describe('executeQuery', () => {
-  it('should make an asynchronous request and update the response state', async () => {
-    render(<Main />);
+test('saving and retrieving data from localStorage API URL',()=>{
+  const { getByTestId } = render(<Main />);
 
-    // Дождитесь завершения загрузки компонента
-    await waitFor(() => {
-      // Здесь вы можете получить доступ к вашему компоненту и симулировать ввод данных
-      const queryInput = screen.getByLabelText('Query');
-      userEvent.type(queryInput, 'Your test query here');
+  const apiUrl=getByTestId('apiUrl-input') as HTMLTextAreaElement;
+  fireEvent.change(apiUrl, { target: { value: 'New request' } });
+  expect(localStorage.getItem('apiUrl')).toEqual(JSON.stringify('New request'));
+  const loadedQuery = localStorage.getItem('apiUrl');
+  expect(loadedQuery).toEqual(JSON.stringify(apiUrl.value));
+})
 
-      const apiUrlInput = screen.getByLabelText('API URL');
-      userEvent.type(apiUrlInput, 'Your test API URL here');
+test('saving and retrieving data from localStorage Variables',()=>{
+  const { getByTestId } = render(<Main />);
 
-      // Нажмите кнопку для выполнения запроса
-      const executeButton = screen.getByText('Execute');
-      userEvent.click(executeButton);
-    });
+  const variables=getByTestId('variables-input') as HTMLTextAreaElement;
+  fireEvent.change(variables, { target: { value: 'New request' } });
+  expect(localStorage.getItem('variables')).toEqual(JSON.stringify('New request'));
+  const loadedQuery = localStorage.getItem('variables');
+  expect(loadedQuery).toEqual(JSON.stringify(variables.value));
+})
 
-    // Дождитесь обновления состояния response
-    await waitFor(() => {
-      expect(screen.getByText('Your expected response')).toBeInTheDocument();
-    });
-  });
-});*/
+test('saving and retrieving data from localStorage Variables',()=>{
+  const { getByTestId } = render(<Main />);
+
+  const headers=getByTestId('headers-input') as HTMLTextAreaElement;
+  fireEvent.change(headers, { target: { value: 'New request' } });
+  expect(localStorage.getItem('headers')).toEqual(JSON.stringify('New request'));
+  const loadedQuery = localStorage.getItem('headers');
+  expect(loadedQuery).toEqual(JSON.stringify(headers.value));
+})

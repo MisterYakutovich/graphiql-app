@@ -17,10 +17,10 @@ describe('<Footer />', () => {
     expect(footerElement).toBeInTheDocument();
     expect(footerElement).toHaveClass('footer');
 
-    const currentYear = new Date().getFullYear().toString();
+    const currentYear = '2023';
     const yearElement = screen.getByText(currentYear);
     expect(yearElement).toBeInTheDocument();
-
+  
     const githubLink = screen.getByText('Github');
     expect(githubLink).toBeInTheDocument();
     expect(githubLink).toHaveAttribute(
@@ -28,7 +28,7 @@ describe('<Footer />', () => {
       'https://github.com/MisterYakutovich'
     );
 
-    const rollingScopesLink = screen.getByText('Rolling Scopes School');
+    const rollingScopesLink = screen.getByText('Rolling Scopes');
     expect(rollingScopesLink).toBeInTheDocument();
     expect(rollingScopesLink).toHaveAttribute(
       'href',

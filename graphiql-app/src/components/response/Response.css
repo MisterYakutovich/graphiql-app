@@ -1,0 +1,17 @@
+.wrapper-main_json {
+    border: 1px solid #717171;
+    font-size: 15px;
+    border-radius: 8px;
+    color: #41d87b;
+    overflow-x: auto;
+  }
+  @media screen and (max-width: 600px) {
+    .wrapper-main_json {
+        font-size: 12px;
+      }
+  }
+  @media screen and (max-width: 450px) {
+    .wrapper-main_json {
+        font-size: 11px;
+      }
+  }

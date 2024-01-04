@@ -36,13 +36,13 @@
   width: 10%;
   color: #41d87b;
 }
-.wrapper-main_json {
+/*.wrapper-main_json {
   border: 1px solid #717171;
   font-size: 15px;
   border-radius: 8px;
   color: #41d87b;
   overflow-x: auto;
-}
+}*/
 textarea {
   overflow: auto;
   resize: none;
@@ -168,9 +168,9 @@ textarea {
   .sections-qiery_textarea {
     font-size: 12px;
   }
-  .wrapper-main_json {
+  /*.wrapper-main_json {
     font-size: 12px;
-  }
+  }*/
   .sections_variables_textarea {
     font-size: 12px;
   }
@@ -194,9 +194,9 @@ textarea {
     font-size: 10px;
     line-height: 11px;
   }
-  .wrapper-main_json {
+  /*.wrapper-main_json {
     font-size: 11px;
-  }
+  }*/
   .sections_variables_1 textarea {
     font-size: 10px;
     line-height: 8px;

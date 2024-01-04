@@ -11,17 +11,19 @@ import { Context, useLanguage } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SwitchLanguages from '../localization/Languages';
 
+
 const Header: FC = () => {
   const auth = useContext(Context);
   const { language, translations } = useLanguage();
-  const [user, loading] = useAuthState(auth!.auth);
+  const [userAuth, loading] = useAuthState(auth!.auth);
+  
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) {
       return;
     }
-    if (user) navigate(`${MAIN_ROUTE}`);
-  }, [user, loading]);
+    if (userAuth) navigate(`${MAIN_ROUTE}`);
+  }, [userAuth, loading]);
   return (
     <header className="header">
       <div className="wrapper">
@@ -39,16 +41,17 @@ const Header: FC = () => {
 
           <nav className="navbar">
             <ul className="header_list">
-              {user ? (
+              {userAuth ? (
                 <>
                   <Link to={MAIN_ROUTE}>
-                    <button className="button">
+                    <button className="button" data-testid="main-button">
                       {translations[language].main}
                     </button>
                   </Link>
                   <button
                     onClick={() => auth?.auth.signOut()}
                     className="button"
+                    data-testid="signOut-button"
                   >
                     {translations[language].signOut}
                   </button>
@@ -56,12 +59,12 @@ const Header: FC = () => {
               ) : (
                 <>
                   <Link to={LOGIN_ROUTE}>
-                    <button className="button">
+                    <button className="button" data-testid="login-button">
                       {translations[language].signIn}
                     </button>
                   </Link>
                   <Link to={REGISTRATION_ROUTE}>
-                    <button className="button">
+                    <button className="button" data-testid="registration-button">
                       {translations[language].signup}
                     </button>
                   </Link>

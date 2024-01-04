@@ -1,3 +1,82 @@
+
+/*import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Header from './Header';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useContext } from 'react';
+
+import { Context } from '../../main';
+
+jest.mock('react-firebase-hooks/auth', () => ({
+  useAuthState: jest.fn(),
+}));
+
+// Mock useContext hook
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useContext: jest.fn(),
+}));
+
+const mockAuth = {
+  auth: {
+    signOut: jest.fn(),
+  },
+};
+
+test('should display buttons for authenticated user', () => {
+  // Stub the return values for useAuthState and useContext hooks
+  useAuthState.mockReturnValueOnce([{}, false]);
+  useContext.mockReturnValueOnce(mockAuth);
+
+  render(<Header />);
+
+  // Check if the "Main" button is displayed
+  expect(screen.getByTestId('main-button')).toBeInTheDocument();
+
+  // Check if the "Sign Out" button is displayed
+  expect(screen.getByTestId('signOut-button')).toBeInTheDocument();
+});
+
+test('should display buttons for unauthenticated user', () => {
+  // Stub the return values for useAuthState and useContext hooks
+  useAuthState.mockReturnValueOnce([null, false]);
+  useContext.mockReturnValueOnce(mockAuth);
+
+  // Render the component with a null user
+  render(<Header user={null} />);
+
+  // Check if the "Login" button is displayed
+  expect(screen.getByTestId('login-button')).toBeInTheDocument();
+
+  // Check if the "Registration" button is displayed
+  expect(screen.getByTestId('registration-button')).toBeInTheDocument();
+});*/
+/*test('отображение кнопок для авторизованного пользователя', () => {
+ 
+   render(<Header/>);
+
+  // Проверяем, что кнопка "Главная" отображается
+  expect(screen.getByTestId('main-button')).toBeInTheDocument();
+
+  // Проверяем, что кнопка "Выйти" отображается
+  expect(screen.getByTestId('signOut-button')).toBeInTheDocument();
+});
+
+test('отображение кнопок для неавторизованного пользователя', () => {
+  const { rerender } = render(<Header />);
+
+  // Перерисовываем компонент с пользователем null
+  rerender(<Header user={null}/>);
+
+  // Проверяем, что кнопка "Войти" отображается
+  expect(screen.getByTestId('login-button')).toBeInTheDocument();
+
+  // Проверяем, что кнопка "Регистрация" отображается
+  expect(screen.getByTestId('registration-button')).toBeInTheDocument();
+});*/
+
+
+
 /*import { render, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';

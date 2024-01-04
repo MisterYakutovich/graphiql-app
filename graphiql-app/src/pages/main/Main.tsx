@@ -2,6 +2,7 @@ import React, { useState, useRef, ChangeEvent } from 'react';
 import fetch from 'isomorphic-fetch';
 import './Main.css';
 import Documentation from '../../components/documentation/Documentation';
+import Response from '../../components/response/Response';
 
 export interface SchemaType {
   data: {
@@ -33,6 +34,7 @@ const Main: React.FC = () => {
   const [response, setResponse] = useState<string | null>(
     loadDataFromLocalStorage('response') || null
   );
+ 
   const [apiUrl, setApiUrl] = useState<string>(
     loadDataFromLocalStorage('apiUrl') || ''
   );
@@ -152,21 +154,19 @@ const Main: React.FC = () => {
       const data = await results.json();
       setResponse(data);
 
-      //
       saveDataToLocalStorage('response', data);
 
-      //
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-
+ 
   return (
     <div className="wrapper-main">
       <div className="wrapper-main_apiUrl">
         <button onClick={executeQuery}>Execute</button>
 
-        <input type="text" value={apiUrl} onChange={handleApiUrlChange} />
+        <input placeholder="API URL" type="text" value={apiUrl} onChange={handleApiUrlChange} data-testid="apiUrl-input"/>
       </div>
       <div className="wrapper-main_content" ref={contentRef}>
         <div className="wrapper-main_content-slider">
@@ -205,6 +205,7 @@ const Main: React.FC = () => {
                 className="sections-qiery_textarea"
                 value={query}
                 onChange={handleQueryChange}
+                data-testid="query-input"
               />
             </label>
           </div>
@@ -238,6 +239,7 @@ const Main: React.FC = () => {
                   className="sections_headers_textarea"
                   value={headers}
                   onChange={handleHeadersChange}
+                  data-testid="headers-input"
                 />
               </div>
               <div
@@ -248,15 +250,13 @@ const Main: React.FC = () => {
                   className="sections_variables_textarea"
                   value={variables}
                   onChange={handleVariablesChange}
+                  data-testid="variables-input"
                 />
               </div>
             </section>
           </div>
         </div>
-        <div className="wrapper-main_json">
-          {/* Display response here */}
-          <pre>{JSON.stringify(response, null, 2)}</pre>
-        </div>
+       <Response response={response}/>
       </div>
     </div>
   );

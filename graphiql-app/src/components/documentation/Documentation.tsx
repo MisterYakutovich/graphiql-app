@@ -6,7 +6,6 @@ interface DocumentationProps {
   apiUrl: string;
 }
 const Documentation: FC<DocumentationProps> = ({ apiUrl }) => {
-  console.log(apiUrl);
   const [schema, setSchema] = useState<SchemaType | null>(null);
 
   useEffect(() => {
