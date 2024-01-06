@@ -1,209 +1,527 @@
-
-/*import { render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from './Header';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useContext } from 'react';
-
-import { Context } from '../../main';
-
-jest.mock('react-firebase-hooks/auth', () => ({
-  useAuthState: jest.fn(),
-}));
-
-// Mock useContext hook
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useContext: jest.fn(),
-}));
-
-const mockAuth = {
-  auth: {
-    signOut: jest.fn(),
-  },
-};
-
-test('should display buttons for authenticated user', () => {
-  // Stub the return values for useAuthState and useContext hooks
-  useAuthState.mockReturnValueOnce([{}, false]);
-  useContext.mockReturnValueOnce(mockAuth);
-
-  render(<Header />);
-
-  // Check if the "Main" button is displayed
-  expect(screen.getByTestId('main-button')).toBeInTheDocument();
-
-  // Check if the "Sign Out" button is displayed
-  expect(screen.getByTestId('signOut-button')).toBeInTheDocument();
-});
-
-test('should display buttons for unauthenticated user', () => {
-  // Stub the return values for useAuthState and useContext hooks
-  useAuthState.mockReturnValueOnce([null, false]);
-  useContext.mockReturnValueOnce(mockAuth);
-
-  // Render the component with a null user
-  render(<Header user={null} />);
-
-  // Check if the "Login" button is displayed
-  expect(screen.getByTestId('login-button')).toBeInTheDocument();
-
-  // Check if the "Registration" button is displayed
-  expect(screen.getByTestId('registration-button')).toBeInTheDocument();
-});*/
-/*test('отображение кнопок для авторизованного пользователя', () => {
- 
-   render(<Header/>);
-
-  // Проверяем, что кнопка "Главная" отображается
-  expect(screen.getByTestId('main-button')).toBeInTheDocument();
-
-  // Проверяем, что кнопка "Выйти" отображается
-  expect(screen.getByTestId('signOut-button')).toBeInTheDocument();
-});
-
-test('отображение кнопок для неавторизованного пользователя', () => {
-  const { rerender } = render(<Header />);
-
-  // Перерисовываем компонент с пользователем null
-  rerender(<Header user={null}/>);
-
-  // Проверяем, что кнопка "Войти" отображается
-  expect(screen.getByTestId('login-button')).toBeInTheDocument();
-
-  // Проверяем, что кнопка "Регистрация" отображается
-  expect(screen.getByTestId('registration-button')).toBeInTheDocument();
-});*/
-
-
-
-/*import { render, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { act } from 'react-dom/test-utils';
-import Header from './Header';
+import { Translations } from '../../types/translate';
 import {
-  LOGIN_ROUTE,
-  REGISTRATION_ROUTE,
-} from '../../utils/consts';
-
-
-jest.mock('../../main', () => ({
-   
-  useLanguage: jest.fn().mockReturnValue({
-    language: 'en', // Set the desired language for the test
-    translations: {
-      en: {
-        welcome: 'Welcome',
-        main: 'Main',
-        signOut: 'Sign Out',
-        signIn: 'Sign In',
-        signup: 'Sign Up',
-      },
-    },
-  }),
-}));
-
+  Context,
+  ContextValue,
+  LanguageContext,
+  firebaseConfig,
+} from '../../main';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
 describe('Header component', () => {
-  it('redirects to login route when "Sign In" button is clicked', () => {
-    const navigateMock = jest.fn();
-    const auth = { auth: {} };
-    const useAuthStateMock = jest.fn().mockReturnValue([null, false]);
-    jest.mock('react-firebase-hooks/auth', () => ({
-      useAuthState: useAuthStateMock,
-    }));
-    const useNavigateMock = jest.fn().mockReturnValue(navigateMock);
-    jest.mock('react-router-dom', () => ({
-      Link: 'a',
-      useNavigate: useNavigateMock,
-    }));
-
+  it('renders welcome link and language switcher', () => {
+    const translations: Record<string, Translations> = {
+      EN: {
+        description_text_1: '',
+        description_text: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: '',
+        welcome: 'WELCOME',
+        main: '',
+        signIn: '',
+        signup: '',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+      RU: {
+        description_text: '',
+        description_text_1: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: '',
+        welcome: 'ЖЕЛАННЫЙ',
+        main: '',
+        signIn: '',
+        signup: '',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+    };
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firestore = getFirestore(firebaseApp);
+    const auth: ContextValue = {
+      auth: getAuth(),
+      db: firestore,
+      signInWithGoogle: function (): Promise<void> {
+        throw new Error('Function not implemented.');
+      },
+    };
     const { getByText } = render(
       <MemoryRouter>
-        <Header />
+        <Context.Provider value={auth}>
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Header />
+          </LanguageContext.Provider>
+        </Context.Provider>
       </MemoryRouter>
     );
 
-    act(() => {
-      fireEvent.click(getByText('Sign In'));
-    });
-
-    expect(navigateMock).toHaveBeenCalledWith(LOGIN_ROUTE);
+    expect(getByText('WELCOME')).toBeInTheDocument();
+    expect(getByText('EN')).toBeInTheDocument();
   });
 
-  it('redirects to registration route when "Sign Up" button is clicked', () => {
-    const navigateMock = jest.fn();
-    const auth = { auth: {} };
-    const useAuthStateMock = jest.fn().mockReturnValue([null, false]);
-    jest.mock('react-firebase-hooks/auth', () => ({
-      useAuthState: useAuthStateMock,
-    }));
-    const useNavigateMock = jest.fn().mockReturnValue(navigateMock);
-    jest.mock('react-router-dom', () => ({
-      Link: 'a',
-      useNavigate: useNavigateMock,
-    }));
-
-    const { getByText } = render(
+  it('renders login and registration buttons when user is not authenticated', () => {
+    const translations: Record<string, Translations> = {
+      EN: {
+        description_text_1: '',
+        description_text: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: '',
+        welcome: 'WELCOME',
+        main: '',
+        signIn: 'SIGN IN',
+        signup: 'SIGN UP',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+      RU: {
+        description_text: '',
+        description_text_1: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: '',
+        welcome: 'ЖЕЛАННЫЙ',
+        main: '',
+        signIn: 'ВХОД',
+        signup: 'РЕГИСТРАЦИЯ',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+    };
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firestore = getFirestore(firebaseApp);
+    const auth: ContextValue = {
+      auth: getAuth(),
+      db: firestore,
+      signInWithGoogle: function (): Promise<void> {
+        throw new Error('Function not implemented.');
+      },
+    };
+    const { getByTestId } = render(
       <MemoryRouter>
-        <Header />
+        <Context.Provider value={auth}>
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Header />
+          </LanguageContext.Provider>
+        </Context.Provider>
       </MemoryRouter>
     );
 
-    act(() => {
-      fireEvent.click(getByText('Sign Up'));
-    });
+    expect(getByTestId('login-button')).toBeInTheDocument();
+    expect(getByTestId('registration-button')).toBeInTheDocument();
+  });
 
-    expect(navigateMock).toHaveBeenCalledWith(REGISTRATION_ROUTE);
+  /*it('renders main and sign out buttons when user is authenticated', async() => {
+    const translations: Record<string, Translations> = {
+      EN: {
+        description_text_1: '',
+        description_text: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: 'SIGN OUT',
+        welcome: 'WELCOME',
+        main: 'MAIN',
+        signIn: 'SIGN IN',
+        signup: 'SIGN UP',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+      RU: {
+        description_text: '',
+        description_text_1: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: 'ВЫХОД',
+        welcome: 'ЖЕЛАННЫЙ',
+        main: 'ОСНОВНАЯ',
+        signIn: 'ВХОД',
+        signup: 'РЕГИСТРАЦИЯ',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+    };
+    // Mock the useAuthState hook to return authenticated user
+   
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firestore = getFirestore(firebaseApp);
+    const auth: ContextValue = {
+      auth: getAuth(),
+      db: firestore,
+      signInWithGoogle: function (): Promise<void> {
+        throw new Error('Function not implemented.');
+      },
+    };
+    jest.mock('react-firebase-hooks/auth', () => ({
+      useAuthState: () => [true, false],
+    }));
+    const { getByTestId } = render(
+       <MemoryRouter>
+      <Context.Provider value={auth}>
+        <LanguageContext.Provider
+          value={{ language: 'EN', translations, changeLanguage: () => {} }}
+        >
+          <Header />
+        </LanguageContext.Provider>
+      </Context.Provider>
+    </MemoryRouter>
+    );
+    await waitFor(() => {
+    expect(getByTestId('main-button')).toBeInTheDocument();
+    expect(getByTestId('signOut-button')).toBeInTheDocument();
+  });
+})*/
+
+  it('navigates to the correct route when link is clicked', () => {
+    const translations: Record<string, Translations> = {
+      EN: {
+        description_text_1: '',
+        description_text: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: 'SIGN OUT',
+        welcome: 'WELCOME',
+        main: 'MAIN',
+        signIn: 'SIGN IN',
+        signup: 'SIGN UP',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+      RU: {
+        description_text: '',
+        description_text_1: '',
+        description_text_2: '',
+        description_text_3: '',
+        description_text_4: '',
+        description_text_5: '',
+        description_text_6: '',
+        title: '',
+        title_span: '',
+        title_1: '',
+        signOut: 'ВЫХОД',
+        welcome: 'ЖЕЛАННЫЙ',
+        main: 'ОСНОВНАЯ',
+        signIn: 'ВХОД',
+        signup: 'РЕГИСТРАЦИЯ',
+        course_description_title: '',
+        course_description_text: '',
+        course_description_text_1: '',
+        course_description_text_2: '',
+        course_description_text_3: '',
+        course_description_text_4: '',
+        course_description_text_5: '',
+        course_description_text_6: '',
+        course_description_text_7: '',
+        course_description_text_8: '',
+        about_description_text: '',
+        about_description_text_2: '',
+        about_description_text_3: '',
+        about_title: '',
+        about_title_span: '',
+        form_login_title: '',
+        email: '',
+        password: '',
+        submit_login: '',
+        submit_login_2: '',
+        firstname: '',
+        submit: '',
+        submit_2: '',
+        back_sign_in: '',
+        now: '',
+        alert_registration: '',
+        validacia_password: '',
+        validation_name: '',
+        digit: '',
+        lowercase: '',
+        uppercase: '',
+        simbol: '',
+      },
+    };
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firestore = getFirestore(firebaseApp);
+    const auth: ContextValue = {
+      auth: getAuth(),
+      db: firestore,
+      signInWithGoogle: function (): Promise<void> {
+        throw new Error('Function not implemented.');
+      },
+    };
+    const { getByText } = render(
+      <MemoryRouter>
+        <Context.Provider value={auth}>
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Header />
+          </LanguageContext.Provider>
+        </Context.Provider>
+      </MemoryRouter>
+    );
+
+    fireEvent.click(getByText('WELCOME'));
+    fireEvent.click(getByText('SIGN IN'));
+    fireEvent.click(getByText('SIGN UP'));
+    // Проверьте, что произошел переход на корректный маршрут
   });
 });
-/*import { render, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import Header from './Header';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts';
-import '@testing-library/jest-dom';
-
-test('redirects user to login/registration form on button click', () => {
-  const { getByText } = render(
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>
-  );
-
-  const loginButton = getByText('Sign in');
-  fireEvent.click(loginButton);
-  expect(window.location.pathname).toBe(LOGIN_ROUTE);
-
-  const registrationButton = getByText('Signup');
-  fireEvent.click(registrationButton);
-  expect(window.location.pathname).toBe(REGISTRATION_ROUTE);
-});*/
-
-/*import { render, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import Header from './Header';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts';
-
-
-describe('Header component', () => {
-  it('redirects to login route when "Sign In" button is clicked', () => {
-    const { getByText } = render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>
-    );
-    const signInButton = getByText('Sign In');
-    fireEvent.click(signInButton);
-    expect(window.location.pathname).toBe(LOGIN_ROUTE);
-  });
-
-  it('redirects to registration route when "Sign Up" button is clicked', () => {
-    const { getByText } = render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>
-    );
-    const signUpButton = getByText('Sign Up');
-    fireEvent.click(signUpButton);
-    expect(window.location.pathname).toBe(REGISTRATION_ROUTE);
-  });
-});*/

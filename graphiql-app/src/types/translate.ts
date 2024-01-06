@@ -1,13 +1,13 @@
-export  interface LanguageContextProps {
+export interface LanguageContextProps {
   language: string;
   translations: Record<string, Translations>;
   changeLanguage: (newLanguage: string) => void;
 }
-export  interface LanguageProviderProps {
+export interface LanguageProviderProps {
   children: React.ReactNode;
 }
 
-export  interface Translations {
+export interface Translations {
   description_text: string;
   description_text_1: string;
   description_text_2: string;

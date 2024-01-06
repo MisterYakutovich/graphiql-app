@@ -11,12 +11,11 @@ import { Context, useLanguage } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SwitchLanguages from '../localization/Languages';
 
-
 const Header: FC = () => {
   const auth = useContext(Context);
   const { language, translations } = useLanguage();
   const [userAuth, loading] = useAuthState(auth!.auth);
-  
+
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) {
@@ -64,7 +63,10 @@ const Header: FC = () => {
                     </button>
                   </Link>
                   <Link to={REGISTRATION_ROUTE}>
-                    <button className="button" data-testid="registration-button">
+                    <button
+                      className="button"
+                      data-testid="registration-button"
+                    >
                       {translations[language].signup}
                     </button>
                   </Link>

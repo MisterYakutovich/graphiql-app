@@ -19,12 +19,11 @@ const Login: FC = () => {
       return;
     }
   };
- 
+
   return (
     <section className="section-form_login">
-        
       <div className="form-login">
-      {error && <p className="error">{error.message}</p>}
+        {error && <p className="error">{error.message}</p>}
         <div className="form-login_title">
           {' '}
           {translations[language].form_login_title}
@@ -41,14 +40,13 @@ const Login: FC = () => {
           />
           <div className="cut cut-short_login"></div>
           <label htmlFor="email" className="placeholder">
-          
             {translations[language].email}
           </label>
         </div>
         <div className="input-container_login ic2">
           <input
             type="password"
-            id="password" 
+            id="password"
             className="input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -56,7 +54,6 @@ const Login: FC = () => {
           />
           <div className="cut cut-short_login"></div>
           <label htmlFor="password" className="placeholder">
-          
             {translations[language].password}
           </label>
         </div>
@@ -65,11 +62,9 @@ const Login: FC = () => {
           onClick={() => logInWithEmailAndPassword(email, password)}
         >
           {translations[language].submit_login}
-         
         </button>
         <button className="submit_login" onClick={auth?.signInWithGoogle}>
           {translations[language].submit_login_2}
-         
         </button>
       </div>
     </section>

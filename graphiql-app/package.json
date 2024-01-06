@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format:fix": "prettier . --write",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "prettier": {
     "endOfLine": "auto",

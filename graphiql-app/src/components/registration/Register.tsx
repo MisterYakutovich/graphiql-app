@@ -6,15 +6,18 @@ import { Context, useLanguage } from '../../main';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { LOGIN_ROUTE } from '../../utils/consts';
-import  IFormInput  from '../../types/interfase';
+import IFormInput from '../../types/interfase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
 
 const Register: FC = () => {
   const { language, translations } = useLanguage();
   const auth = useContext(Context);
-  const [errors, setErrors] = useState<IFormInput>({ firstName: '', email: '', password: '' });
+  const [errors, setErrors] = useState<IFormInput>({
+    firstName: '',
+    email: '',
+    password: '',
+  });
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -23,7 +26,7 @@ const Register: FC = () => {
   const onSubmit: SubmitHandler<IFormInput> = () => {
     setIsSubmitted(true);
   };
- 
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
     validateField('firstName', e.target.value);
@@ -40,10 +43,14 @@ const Register: FC = () => {
   const validateField = (fieldName: keyof IFormInput, value: string) => {
     schema
       .validateAt(fieldName, { [fieldName]: value })
-      .then(() => setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' })))
-      .catch((err: { message: string; }) => setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: err.message })));
+      .then(() =>
+        setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }))
+      )
+      .catch((err: { message: string }) =>
+        setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: err.message }))
+      );
   };
-  
+
   const registerWithEmailAndPassword = async (
     name: string,
     email: string,
@@ -78,7 +85,7 @@ const Register: FC = () => {
   const getCharacterValidationError = (str: string) => {
     return `${translations[language].validacia_password} ${str}`; //Your password must have at least 1 ${str} character
   };
-  
+
   const schema = yup.object().shape({
     firstName: yup
       .string()
@@ -110,7 +117,7 @@ const Register: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: {  isValid },
+    formState: { isValid },
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   return (
@@ -124,7 +131,7 @@ const Register: FC = () => {
           <input
             {...register('firstName')}
             type="text"
-            id='firstName'
+            id="firstName"
             className="input"
             value={name}
             onChange={handleNameChange}
@@ -133,7 +140,6 @@ const Register: FC = () => {
 
           <div className="cut"></div>
           <label htmlFor="firstName" className="placeholder">
-         
             {translations[language].firstname}
           </label>
           <p className="error_registration">{errors.firstName}</p>
@@ -145,8 +151,7 @@ const Register: FC = () => {
             id="email"
             className="input"
             value={email}
-            onChange={ handleEmailChange }
-           
+            onChange={handleEmailChange}
             placeholder=" "
           />
           <div className="cut cut-short"></div>
@@ -159,11 +164,10 @@ const Register: FC = () => {
           <input
             {...register('password')}
             type="password"
-            id="password" 
+            id="password"
             className="input"
             value={password}
-           onChange={handlePasswordChange}
-          
+            onChange={handlePasswordChange}
             placeholder=" "
           />
           <div className="cut"></div>

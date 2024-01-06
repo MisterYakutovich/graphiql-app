@@ -34,7 +34,7 @@ const Main: React.FC = () => {
   const [response, setResponse] = useState<string | null>(
     loadDataFromLocalStorage('response') || null
   );
- 
+
   const [apiUrl, setApiUrl] = useState<string>(
     loadDataFromLocalStorage('apiUrl') || ''
   );
@@ -155,18 +155,23 @@ const Main: React.FC = () => {
       setResponse(data);
 
       saveDataToLocalStorage('response', data);
-
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
- 
+
   return (
     <div className="wrapper-main">
       <div className="wrapper-main_apiUrl">
         <button onClick={executeQuery}>Execute</button>
 
-        <input placeholder="API URL" type="text" value={apiUrl} onChange={handleApiUrlChange} data-testid="apiUrl-input"/>
+        <input
+          placeholder="API URL"
+          type="text"
+          value={apiUrl}
+          onChange={handleApiUrlChange}
+          data-testid="apiUrl-input"
+        />
       </div>
       <div className="wrapper-main_content" ref={contentRef}>
         <div className="wrapper-main_content-slider">
@@ -256,7 +261,7 @@ const Main: React.FC = () => {
             </section>
           </div>
         </div>
-       <Response response={response}/>
+        <Response response={response} />
       </div>
     </div>
   );

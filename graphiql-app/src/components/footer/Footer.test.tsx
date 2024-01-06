@@ -20,7 +20,7 @@ describe('<Footer />', () => {
     const currentYear = '2023';
     const yearElement = screen.getByText(currentYear);
     expect(yearElement).toBeInTheDocument();
-  
+
     const githubLink = screen.getByText('Github');
     expect(githubLink).toBeInTheDocument();
     expect(githubLink).toHaveAttribute(

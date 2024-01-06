@@ -1,4 +1,4 @@
-import  { FC, StrictMode, createContext, useContext, useState } from 'react';
+import { FC, StrictMode, createContext, useContext, useState } from 'react';
 import App from './App.tsx';
 import { initializeApp } from 'firebase/app';
 import {
@@ -25,12 +25,9 @@ import {
 } from './types/translate.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-
 import { createRoot } from 'react-dom/client';
 
-
-
- export const LanguageContext = createContext<LanguageContextProps | undefined>(
+export const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
 );
 
@@ -61,13 +58,13 @@ export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
   );
 };
 
-interface ContextValue {
+export interface ContextValue {
   auth: Auth;
   db: Firestore;
   signInWithGoogle: () => Promise<void>;
 }
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyCgcg4liT5oqSclmnlNPbILgECwGp43xxI',
   authDomain: 'graphql-cfa62.firebaseapp.com',
   projectId: 'graphql-cfa62',
@@ -84,7 +81,6 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
-    console.log(user);
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
@@ -103,9 +99,10 @@ const signInWithGoogle = async () => {
 };
 const queryClient = new QueryClient();
 export const Context = createContext<ContextValue | null>(null);
-
-const rootElement = (document.getElementById('root') as HTMLElement) || document.createElement('div');
-const root = createRoot(rootElement );
+const rootElement =
+  (document.getElementById('root') as HTMLElement) ||
+  document.createElement('div');
+const root = createRoot(rootElement);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
