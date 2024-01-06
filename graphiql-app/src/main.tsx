@@ -1,7 +1,5 @@
-import React, { FC, createContext, useContext, useState } from 'react';
-
+import  { FC, StrictMode, createContext, useContext, useState } from 'react';
 import App from './App.tsx';
-import './index.css';
 import { initializeApp } from 'firebase/app';
 import {
   Auth,
@@ -26,9 +24,13 @@ import {
   Translations,
 } from './types/translate.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ReactDOM from 'react-dom/client';
 
-const LanguageContext = createContext<LanguageContextProps | undefined>(
+
+import { createRoot } from 'react-dom/client';
+
+
+
+ export const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
 );
 
@@ -101,11 +103,11 @@ const signInWithGoogle = async () => {
 };
 const queryClient = new QueryClient();
 export const Context = createContext<ContextValue | null>(null);
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+
+const rootElement = (document.getElementById('root') as HTMLElement) || document.createElement('div');
+const root = createRoot(rootElement );
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <Context.Provider value={{ auth, db, signInWithGoogle }}>
@@ -113,28 +115,5 @@ root.render(
         </Context.Provider>
       </LanguageProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
-/*ReactDOM.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <Context.Provider value={{ auth, db, signInWithGoogle }}>
-          <App />
-        </Context.Provider>
-      </LanguageProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);*/
-/*ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <Context.Provider value={{ auth, db, signInWithGoogle }}>
-          <App />
-        </Context.Provider>
-      </LanguageProvider>
-    </QueryClientProvider>
-  </React.StrictMode>
-);*/

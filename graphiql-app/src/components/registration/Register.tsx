@@ -6,13 +6,16 @@ import { Context, useLanguage } from '../../main';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { LOGIN_ROUTE } from '../../utils/consts';
+import  IFormInput  from '../../types/interfase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IFormInput } from '../../types/interfase';
+
 
 const Register: FC = () => {
-  const auth = useContext(Context);
   const { language, translations } = useLanguage();
+  const auth = useContext(Context);
+  const [errors, setErrors] = useState<IFormInput>({ firstName: '', email: '', password: '' });
+  console.log(errors)
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -21,7 +24,27 @@ const Register: FC = () => {
   const onSubmit: SubmitHandler<IFormInput> = () => {
     setIsSubmitted(true);
   };
+ 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+    validateField('firstName', e.target.value);
+  };
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    validateField('email', e.target.value);
+  };
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    validateField('password', e.target.value);
+  };
+  const validateField = (fieldName: keyof IFormInput, value: string) => {
+    schema
+      .validateAt(fieldName, { [fieldName]: value })
+      .then(() => setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' })))
+      .catch((err: { message: string; }) => setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: err.message })));
+  };
+  
   const registerWithEmailAndPassword = async (
     name: string,
     email: string,
@@ -56,7 +79,7 @@ const Register: FC = () => {
   const getCharacterValidationError = (str: string) => {
     return `${translations[language].validacia_password} ${str}`; //Your password must have at least 1 ${str} character
   };
-
+  
   const schema = yup.object().shape({
     firstName: yup
       .string()
@@ -88,8 +111,9 @@ const Register: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: {  isValid },
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
+
   return (
     <section className="section-form">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -101,47 +125,53 @@ const Register: FC = () => {
           <input
             {...register('firstName')}
             type="text"
+            id='firstName'
             className="input"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             placeholder=" "
           />
 
           <div className="cut"></div>
-          <label htmlFor="firstname" className="placeholder">
+          <label htmlFor="firstName" className="placeholder">
+         
             {translations[language].firstname}
           </label>
-          <p className="error_registration">{errors.firstName?.message}</p>
+          <p className="error_registration">{errors.firstName}</p>
         </div>
         <div className="input-container ic2">
           <input
             {...register('email')}
             type="text"
+            id="email"
             className="input"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={ handleEmailChange }
+           
             placeholder=" "
           />
           <div className="cut cut-short"></div>
           <label htmlFor="email" className="placeholder">
             {translations[language].email}
           </label>
-          <p className="error_registration">{errors.email?.message}</p>
+          <p className="error_registration">{errors.email}</p>
         </div>
         <div className="input-container ic2">
           <input
             {...register('password')}
             type="password"
+            id="password" 
             className="input"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+           onChange={handlePasswordChange}
+          
             placeholder=" "
           />
           <div className="cut"></div>
           <label htmlFor="password" className="placeholder">
             {translations[language].password}
           </label>
-          <p className="error_registration">{errors.password?.message}</p>
+          <p className="error_registration">{errors.password}</p>
         </div>
         <button disabled={!isValid} className="submit" onClick={registration}>
           {translations[language].submit}
