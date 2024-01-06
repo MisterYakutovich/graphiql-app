@@ -1,4 +1,4 @@
-import {  act, fireEvent, render } from '@testing-library/react';
+import {  fireEvent, render, waitFor } from '@testing-library/react';
 import Register from './Register';
 import '@testing-library/jest-dom';
 import { Translations } from '../../types/translate';
@@ -121,7 +121,7 @@ describe('Register component', () => {
     expect(getByLabelText('Password')).toBeInTheDocument();
     expect(getByText('Submit')).toBeInTheDocument();
     expect(getByText('Register with Google')).toBeInTheDocument();
-    //expect(getByText('Back to Sign In')).toBeInTheDocument();
+   
   });
   
   
@@ -479,11 +479,11 @@ describe('Register component', () => {
     </LanguageContext.Provider>
     </MemoryRouter>
     );
-    act(() => {
+   await waitFor(()=>{
     fireEvent.change(getByLabelText('First Name'), { target: { value: 'John' } });
     fireEvent.change(getByLabelText('Email'), { target: { value: 'john@example.com' } });
     fireEvent.change(getByLabelText('Password'), { target: { value: 'Password123!' } });
     fireEvent.click(getByText('Submit'));
-  });
+  })
   });
 });

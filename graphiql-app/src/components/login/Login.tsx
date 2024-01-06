@@ -5,23 +5,26 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login: FC = () => {
   const { language, translations } = useLanguage();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<Error | null>(null);
+
   const auth = useContext(Context);
   const logInWithEmailAndPassword = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth!.auth, email, password);
     } catch (err) {
       const typedError = err as Error;
-      console.error(err);
-      alert(typedError?.message);
+      setError(typedError);
       return;
     }
   };
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+ 
   return (
     <section className="section-form_login">
+        
       <div className="form-login">
+      {error && <p className="error">{error.message}</p>}
         <div className="form-login_title">
           {' '}
           {translations[language].form_login_title}

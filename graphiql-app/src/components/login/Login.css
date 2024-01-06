@@ -132,6 +132,12 @@
 .back_sign_in span {
   color: #08d;
 }
+.error {
+  color: red;
+  position: relative;
+  text-align: center;
+  top: -10px;
+}
 @media (max-width: 450px) {
   .form-login_title {
     font-size: 27px;

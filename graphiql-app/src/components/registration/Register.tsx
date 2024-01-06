@@ -15,7 +15,6 @@ const Register: FC = () => {
   const { language, translations } = useLanguage();
   const auth = useContext(Context);
   const [errors, setErrors] = useState<IFormInput>({ firstName: '', email: '', password: '' });
-  console.log(errors)
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
