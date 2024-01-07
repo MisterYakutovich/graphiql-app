@@ -11,7 +11,11 @@ const Footer: FC = () => {
               <span>2023</span>
             </li>
             <li className="left_list_item">
-              <a href="https://github.com/MisterYakutovich" className="github" target="_blank">
+              <a
+                href="https://github.com/MisterYakutovich"
+                className="github"
+                target="_blank"
+              >
                 Github
               </a>
             </li>
