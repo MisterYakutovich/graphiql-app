@@ -21,7 +21,7 @@ const Login: FC = () => {
   };
 
   return (
-    <section className="section-form_login">
+    <section className="section-form_login" data-testid="login-component">
       <div className="form-login">
         {error && <p className="error">{error.message}</p>}
         <div className="form-login_title">

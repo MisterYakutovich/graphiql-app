@@ -153,13 +153,13 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,7 +246,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import './Welcome.css';
 import { useLanguage } from '../../main';
 import { FC } from 'react';
@@ -255,7 +255,7 @@ const Welcome: FC = () =&gt; {
   const { language, translations } = useLanguage();
   return (
     &lt;&gt;
-      &lt;section className="welcome"&gt;
+      &lt;section className="welcome" data-testid="welcome-component"&gt;
         &lt;div className="welcome_section_title"&gt;
           &lt;h1 className="title"&gt;
             {translations[language].title}{' '}
@@ -355,7 +355,7 @@ export default Welcome;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-01-06T23:31:29.987Z
+      at 2024-01-07T12:48:26.801Z
     </div>
     <script src="../../../prettify.js"></script>
     <script>

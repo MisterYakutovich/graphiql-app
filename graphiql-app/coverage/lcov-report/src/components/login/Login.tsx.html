@@ -132,19 +132,19 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,7 +154,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,7 +204,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, useContext, useState } from 'react';
 import { Context, useLanguage } from '../../main';
 import './Login.css';
@@ -228,8 +228,8 @@ const Login: FC = () =&gt; {
   };
 &nbsp;
   return (
-    &lt;section className="section-form_login"&gt;
-      &lt;div className="form-login"&gt;
+    &lt;section className="section-form_login" data-testid="login-component"&gt;
+      &lt;div className="form-login" &gt;
         {error &amp;&amp; &lt;p className="error"&gt;{error.message}&lt;/p&gt;}
         &lt;div className="form-login_title"&gt;
           {' '}
@@ -292,7 +292,7 @@ export default Login;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-01-06T23:31:29.987Z
+      at 2024-01-07T12:48:26.801Z
     </div>
     <script src="../../../prettify.js"></script>
     <script>

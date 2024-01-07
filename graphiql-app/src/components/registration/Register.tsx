@@ -121,7 +121,7 @@ const Register: FC = () => {
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   return (
-    <section className="section-form">
+    <section className="section-form" data-testid="register-component">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form_title">
           {translations[language].form_login_title}

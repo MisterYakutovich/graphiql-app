@@ -21,9 +21,7 @@
   text-align: center;
 }
 .column-right {
-  /*position: relative;*/
   bottom: 40px;
-  /*float: right;*/
   width: 100px;
   text-align: center;
 }

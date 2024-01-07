@@ -1,5 +1,4 @@
 import { FC } from 'react';
-//import '../../assets/rs_school.svg';
 import './Footer.css';
 
 const Footer: FC = () => {
@@ -12,14 +11,14 @@ const Footer: FC = () => {
               <span>2023</span>
             </li>
             <li className="left_list_item">
-              <a href="https://github.com/MisterYakutovich" className="github">
+              <a href="https://github.com/MisterYakutovich" className="github" target="_blank">
                 Github
               </a>
             </li>
           </ul>
         </div>
         <div className="column-center">
-          <a href="https://rs.school/react/">
+          <a href="https://rs.school/react/" target="_blank">
             Rolling Scopes <span>School</span>
           </a>
         </div>

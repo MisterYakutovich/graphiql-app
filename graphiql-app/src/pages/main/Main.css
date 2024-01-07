@@ -36,13 +36,7 @@
   width: 10%;
   color: #41d87b;
 }
-/*.wrapper-main_json {
-  border: 1px solid #717171;
-  font-size: 15px;
-  border-radius: 8px;
-  color: #41d87b;
-  overflow-x: auto;
-}*/
+
 textarea {
   overflow: auto;
   resize: none;
@@ -53,18 +47,6 @@ textarea {
   outline: none;
 }
 
-/*.wrapper-main_documentation {
-  border-radius: 8px;
-  color: #e06733;
-  border-radius: 8px;
-  border: 1px solid #717171;
-  overflow-x: auto;
-}
-.wrapper-main_documentation pre {
-  margin-left: 10px;
-  margin-top: 5px;
-  font-size: 15px;
-}*/
 .content-slider_documentation-button {
   height: 40px;
   width: 40px;
@@ -154,9 +136,7 @@ textarea {
   .wrapper-main_apiUrl {
     width: 60%;
   }
-  /*.wrapper-main_documentation pre {
-    font-size: 12px;
-  }*/
+
   .item_variables_headers {
     font-size: 12px;
     width: 40%;
@@ -168,9 +148,7 @@ textarea {
   .sections-qiery_textarea {
     font-size: 12px;
   }
-  /*.wrapper-main_json {
-    font-size: 12px;
-  }*/
+
   .sections_variables_textarea {
     font-size: 12px;
   }
@@ -187,16 +165,12 @@ textarea {
     width: 22px;
     height: 22px;
   }
-  /*.wrapper-main_documentation pre {
-    font-size: 11px;
-  }*/
+
   .sections-qiery_textarea {
     font-size: 10px;
     line-height: 11px;
   }
-  /*.wrapper-main_json {
-    font-size: 11px;
-  }*/
+
   .sections_variables_1 textarea {
     font-size: 10px;
     line-height: 8px;

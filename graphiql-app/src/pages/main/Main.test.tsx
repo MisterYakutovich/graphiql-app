@@ -5,16 +5,12 @@ import '@testing-library/jest-dom';
 test('сохранение и получение данных из localStorage', () => {
   const { getByTestId } = render(<Main />);
 
-  // Получаем элемент textarea по data-testid
   const queryInput = getByTestId('query-input') as HTMLTextAreaElement;
 
-  // Симулируем изменение значения в поле ввода запроса
   fireEvent.change(queryInput, { target: { value: 'New request' } });
 
-  // Проверяем, что значение было сохранено в localStorage
   expect(localStorage.getItem('query')).toEqual(JSON.stringify('New request'));
 
-  // Проверяем, что значение из localStorage было загружено и отображено в поле ввода запроса
   const loadedQuery = localStorage.getItem('query');
   expect(loadedQuery).toEqual(JSON.stringify(queryInput.value));
 });

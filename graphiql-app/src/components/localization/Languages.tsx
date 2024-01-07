@@ -17,7 +17,9 @@ const SwitchLanguages: FC<LanguagesProps> = () => {
 
   return (
     <div className="dropdown" onClick={toggleDropdown}>
-      <button className="dropbtn">{language}</button>
+      <button className="dropbtn" data-testid="dropdown-content">
+        {language}
+      </button>
       {isDropdownOpen && (
         <div id="myDropdown" className="dropdown-content">
           <ul>

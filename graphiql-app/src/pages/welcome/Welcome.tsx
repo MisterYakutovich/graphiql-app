@@ -6,7 +6,7 @@ const Welcome: FC = () => {
   const { language, translations } = useLanguage();
   return (
     <>
-      <section className="welcome">
+      <section className="welcome" data-testid="welcome-component">
         <div className="welcome_section_title">
           <h1 className="title">
             {translations[language].title}{' '}

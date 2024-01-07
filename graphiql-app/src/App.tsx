@@ -53,34 +53,3 @@ const App: FC = () => {
 };
 
 export default App;
-
-/*const App: FC = () => {
-  const auth = useContext(Context);
-
-  const [user, loading] = useAuthState(auth!.auth);
-  if (loading) {
-    return <Loader />;
-  }
-
- 
-  return (
-    <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route
-            path={MAIN_ROUTE}
-            element={user ? <Main /> : <Navigate to={LOGIN_ROUTE} />}
-          />
-          <Route path={LOGIN_ROUTE} element={<Login />} />
-          <Route path={REGISTRATION_ROUTE} element={<Register />} />
-          <Route path={WELCOME_ROUTE} element={<Welcome />} />
-          <Route path="*" element={<Page_404 />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </>
-  );
-};
-
-export default App;*/

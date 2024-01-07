@@ -121,14 +121,12 @@ const Main: React.FC = () => {
   };
 
   const handleApiUrlChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    // setApiUrl(event.target.value);
     const value = event.target.value;
     setApiUrl(value);
     saveDataToLocalStorage('apiUrl', value);
   };
 
   const executeQuery = async () => {
-    //let results = await fetch('https://rickandmortyapi.com/graphql'
     try {
       const headersObject: { [key: string]: string } = {};
       if (headers) {
@@ -161,7 +159,7 @@ const Main: React.FC = () => {
   };
 
   return (
-    <div className="wrapper-main">
+    <div className="wrapper-main" data-testid="main-component">
       <div className="wrapper-main_apiUrl">
         <button onClick={executeQuery}>Execute</button>
 
@@ -176,7 +174,10 @@ const Main: React.FC = () => {
       <div className="wrapper-main_content" ref={contentRef}>
         <div className="wrapper-main_content-slider">
           <div className="content-slider" onClick={toggleDocumentation}>
-            <button className="content-slider_documentation-button">
+            <button
+              className="content-slider_documentation-button"
+              data-testid="documentation-button"
+            >
               <svg
                 height="1em"
                 viewBox="0 0 20 24"
@@ -201,6 +202,7 @@ const Main: React.FC = () => {
             </button>
           </div>
         </div>
+
         {showDocumentation && <Documentation apiUrl={apiUrl} />}
 
         <div className="wrapper-main_sections">
@@ -218,6 +220,7 @@ const Main: React.FC = () => {
             <div className="sections-buttons_items">
               <button
                 id="variables"
+                data-testid="variables-section"
                 onClick={toggleVariables}
                 className="item_variables_headers"
                 style={{ backgroundColor: variablesButtonColor }}
@@ -226,6 +229,7 @@ const Main: React.FC = () => {
               </button>
               <button
                 id="headers"
+                data-testid="headers-section"
                 onClick={toggleHeaders}
                 className="item_variables_headers"
                 style={{ backgroundColor: headersButtonColor }}
@@ -239,6 +243,7 @@ const Main: React.FC = () => {
               <div
                 className={showHeaders ? 'sections_headers_1' : 'hidden'}
                 ref={headersRef}
+                data-testid="headers-block"
               >
                 <textarea
                   className="sections_headers_textarea"

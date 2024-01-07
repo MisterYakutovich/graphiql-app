@@ -1,6 +1,5 @@
 .welcome {
   position: relative;
-  /*height: 532px;*/
   height: 145vh;
   left: 0px;
   top: 0px;
@@ -9,7 +8,6 @@
 }
 .welcome_section_title {
   position: relative;
-
   top: 32px;
   max-width: 1222px;
   margin: 0 auto;
@@ -79,33 +77,9 @@
   color: #636060;
   margin-top: 40px;
 }
-/*.about-course {
-  position: relative;
-  height: 650px;
-  left: 0px;
-  top: 0px;
-  background-color: #edf2ec;
-}
-.about-course_wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  position: relative;
-  height: 650px;
-  top: 40px;
-  max-width: 1222px;
-  margin: 0 auto;
-}
-.about-course_img {
-  position: relative;
-  top: 250px;
-  width: 300px;
-  height: 150px;
-  left: 0px;
-}*/
+
 .course-description {
   position: relative;
-  /*width: 700px;*/
   height: 340px;
   top: 36px;
 }
@@ -134,7 +108,7 @@
   text-align: center;
 }
 
-/*---*/
+
 .about-course {
   padding: 20px 20px;
   background-color: #f2f2f2;
@@ -142,7 +116,7 @@
 }
 
 .about-course_wrapper {
-  max-width: 90%; /* Используем проценты */
+  max-width: 90%; 
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -151,24 +125,23 @@
 }
 
 .about-course_img {
-  width: 40%; /* Чтобы изображение было адаптивным */
-  max-width: 320px; /* Устанавливаем максимальную ширину */
+  width: 40%; 
+  max-width: 320px; 
   margin-bottom: 20px;
 }
 
-/* Медиа-запрос для минимальной ширины страницы в 320 пикселей */
+
 @media (min-width: 320px) {
   .about-course_wrapper {
-    max-width: 100%; /* Используем проценты */
-    padding: 0 10px; /* Добавляем отступы по бокам */
+    max-width: 100%; 
+    padding: 0 10px; 
   }
 
   .about-course_img {
-    max-width: 100%; /* Чтобы изображение было адаптивным */
+    max-width: 100%; 
     margin-bottom: 20px;
   }
 }
-/*---*/
 
 @media screen and (max-width: 767px) {
   .welcome_section_title {
