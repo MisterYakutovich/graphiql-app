@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1704631706992" clover="3.2.0">
-  <project timestamp="1704631706992" name="All files">
-    <metrics statements="297" coveredstatements="226" conditionals="48" coveredconditionals="25" methods="53" coveredmethods="36" elements="398" coveredelements="287" complexity="0" loc="297" ncloc="297" packages="13" files="14" classes="14"/>
+<coverage generated="1704658140004" clover="3.2.0">
+  <project timestamp="1704658140004" name="All files">
+    <metrics statements="297" coveredstatements="226" conditionals="50" coveredconditionals="25" methods="53" coveredmethods="36" elements="400" coveredelements="287" complexity="0" loc="297" ncloc="297" packages="13" files="14" classes="14"/>
     <package name="src">
-      <metrics statements="65" coveredstatements="50" conditionals="7" coveredconditionals="3" methods="6" coveredmethods="3"/>
+      <metrics statements="65" coveredstatements="50" conditionals="9" coveredconditionals="3" methods="6" coveredmethods="3"/>
       <file name="App.tsx" path="H:\graphiql-app\graphiql-app\graphiql-app\src\App.tsx">
-        <metrics statements="23" coveredstatements="20" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="1"/>
+        <metrics statements="23" coveredstatements="20" conditionals="5" coveredconditionals="1" methods="2" coveredmethods="1"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
         <line num="3" count="5" type="stmt"/>
@@ -102,10 +102,10 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="Footer.tsx" path="H:\graphiql-app\graphiql-app\graphiql-app\src\components\footer\Footer.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="6" type="stmt"/>
-        <line num="5" count="6" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="42" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="45" count="6" type="stmt"/>
       </file>
     </package>
     <package name="src.components.header">
@@ -159,9 +159,9 @@
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
         <line num="18" count="9" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="43" count="6" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="45" count="6" type="stmt"/>
       </file>
     </package>
     <package name="src.components.login">
@@ -329,24 +329,24 @@
         <line num="119" count="1" type="stmt"/>
         <line num="120" count="1" type="stmt"/>
         <line num="123" count="9" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
         <line num="125" count="1" type="stmt"/>
         <line num="126" count="1" type="stmt"/>
-        <line num="127" count="1" type="stmt"/>
-        <line num="130" count="9" type="stmt"/>
-        <line num="132" count="0" type="stmt"/>
+        <line num="129" count="9" type="stmt"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="132" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="133" count="0" type="stmt"/>
-        <line num="134" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="134" count="0" type="stmt"/>
         <line num="135" count="0" type="stmt"/>
         <line num="136" count="0" type="stmt"/>
-        <line num="137" count="0" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
-        <line num="154" count="0" type="stmt"/>
+        <line num="140" count="0" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
+        <line num="153" count="0" type="stmt"/>
         <line num="155" count="0" type="stmt"/>
         <line num="157" count="0" type="stmt"/>
-        <line num="159" count="0" type="stmt"/>
-        <line num="163" count="9" type="stmt"/>
-        <line num="276" count="6" type="stmt"/>
+        <line num="161" count="9" type="stmt"/>
+        <line num="275" count="6" type="stmt"/>
       </file>
     </package>
     <package name="src.pages.page_404">

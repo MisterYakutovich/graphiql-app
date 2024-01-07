@@ -43,7 +43,7 @@ const App: FC = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.NODE_ENV==='production' ? '/graphiql-app' : '/'}>
         <Header />
         {renderRoutes()}
         <Footer />
