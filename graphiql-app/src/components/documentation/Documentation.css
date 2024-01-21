@@ -10,9 +10,14 @@
   margin-top: 5px;
   font-size: 15px;
 }
-
+.error-message {
+  color: #e06733;
+}
 @media screen and (max-width: 600px) {
   .wrapper-main_documentation pre {
+    font-size: 12px;
+  }
+  .error-message {
     font-size: 12px;
   }
 }

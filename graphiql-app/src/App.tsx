@@ -14,7 +14,7 @@ import Page_404 from './pages/page_404/Page_404';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FC, useContext } from 'react';
 import { Context } from './main';
-import Loader from './components/loader/Loader.tsx';
+import Loader from './components/loader/Loader';
 import Register from './components/registration/Register';
 import Main from './pages/main/Main';
 
@@ -43,7 +43,9 @@ const App: FC = () => {
 
   return (
     <>
-      <BrowserRouter basename={process.env.NODE_ENV==='production' ? '/graphiql-app' : '/'}>
+      <BrowserRouter
+        basename={process.env.NODE_ENV === 'production' ? '/graphiql-app' : '/'}
+      >
         <Header />
         {renderRoutes()}
         <Footer />

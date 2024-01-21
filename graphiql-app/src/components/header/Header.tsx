@@ -7,9 +7,11 @@ import {
   WELCOME_ROUTE,
 } from '../../utils/consts';
 import { FC, useContext, useEffect } from 'react';
-import { Context, useLanguage } from '../../main';
+//import { Context, useLanguage } from '../../main';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SwitchLanguages from '../localization/Languages';
+import { useLanguage } from '../../context/LanguageProvider';
+import { Context } from '../../main';
 
 const Header: FC = () => {
   const auth = useContext(Context);

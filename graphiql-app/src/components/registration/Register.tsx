@@ -2,13 +2,14 @@ import { FC, useContext, useState } from 'react';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import './Register.css';
-import { Context, useLanguage } from '../../main';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { LOGIN_ROUTE } from '../../utils/consts';
 import IFormInput from '../../types/interfase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useLanguage } from '../../context/LanguageProvider';
+import { Context } from '../../main';
 
 const Register: FC = () => {
   const { language, translations } = useLanguage();

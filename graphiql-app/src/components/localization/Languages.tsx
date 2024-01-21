@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { useLanguage } from '../../main';
 import './Languages.css';
+import { useLanguage } from '../../context/LanguageProvider';
 
 interface LanguagesProps {}
 

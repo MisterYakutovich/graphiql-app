@@ -1,5 +1,5 @@
+import { useLanguage } from '../../context/LanguageProvider';
 import './Welcome.css';
-import { useLanguage } from '../../main';
 import { FC } from 'react';
 
 const Welcome: FC = () => {
@@ -79,10 +79,10 @@ const Welcome: FC = () => {
       </section>
       <section className="about">
         <div className="about_section_title">
-          <h2 className="about_title">
+          <p className="about_title">
             {translations[language].about_title}{' '}
             <span>{translations[language].about_title_span}</span>
-          </h2>
+          </p>
           <p className="about_description_text">
             {translations[language].about_description_text}
           </p>

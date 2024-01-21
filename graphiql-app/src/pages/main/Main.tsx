@@ -4,6 +4,14 @@ import './Main.css';
 import Documentation from '../../components/documentation/Documentation';
 import Response from '../../components/response/Response';
 
+import { useDispatch } from 'react-redux';
+import { setApiEndpoint } from '../../redux/endpointSlice';
+import { setQueryQraphql } from '../../redux/querySlice';
+import { setResponseQraphql } from '../../redux/responseSlice';
+import { setVariablesQraphql } from '../../redux/variablesSlice';
+import { setHeadersQraphql } from '../../redux/headersSlice';
+import { useLanguage } from '../../context/LanguageProvider';
+
 export interface SchemaType {
   data: {
     __schema: {
@@ -15,6 +23,8 @@ export interface SchemaType {
 }
 
 const Main: React.FC = () => {
+  const dispatch = useDispatch();
+  const { language, translations } = useLanguage();
   const saveDataToLocalStorage = (key: string, value: string): void => {
     localStorage.setItem(key, JSON.stringify(value));
   };
@@ -22,6 +32,7 @@ const Main: React.FC = () => {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   };
+  const [resError, setResError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>(
     loadDataFromLocalStorage('query') || ''
   );
@@ -38,12 +49,15 @@ const Main: React.FC = () => {
   const [apiUrl, setApiUrl] = useState<string>(
     loadDataFromLocalStorage('apiUrl') || ''
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
   const [variablesButtonColor, setVariablesButtonColor] =
     useState<string>('#41d87b');
   const [headersButtonColor, setHeadersButtonColor] = useState<string>('white');
   const [showVariables, setShowVariables] = useState<boolean>(true);
   const [showHeaders, setShowHeaders] = useState<boolean>(false);
+
   const contentRef = useRef<HTMLDivElement>(null);
   const documentationRef = useRef<HTMLDivElement>(null);
   const variablesRef = useRef<HTMLDivElement>(null);
@@ -102,6 +116,7 @@ const Main: React.FC = () => {
     const value = event.target.value;
     setQuery(value);
     saveDataToLocalStorage('query', value);
+    dispatch(setQueryQraphql(value));
   };
 
   const handleVariablesChange = (
@@ -110,6 +125,7 @@ const Main: React.FC = () => {
     const value = event.target.value;
     setVariables(value);
     saveDataToLocalStorage('variables', value);
+    dispatch(setVariablesQraphql(value));
   };
 
   const handleHeadersChange = (
@@ -118,15 +134,18 @@ const Main: React.FC = () => {
     const value = event.target.value;
     setHeaders(value);
     saveDataToLocalStorage('headers', value);
+    dispatch(setHeadersQraphql(value));
   };
 
   const handleApiUrlChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
     setApiUrl(value);
     saveDataToLocalStorage('apiUrl', value);
+    dispatch(setApiEndpoint(value));
   };
 
   const executeQuery = async () => {
+    setIsLoading(true);
     try {
       const headersObject: { [key: string]: string } = {};
       if (headers) {
@@ -151,18 +170,29 @@ const Main: React.FC = () => {
 
       const data = await results.json();
       setResponse(data);
-
       saveDataToLocalStorage('response', data);
+      setResError(null);
     } catch (error) {
       console.error('Error fetching data:', error);
+      setResError('Error fetching apiurl');
+      saveDataToLocalStorage('response', resError as string);
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleExecuteQuery = () => {
+    executeQuery();
+
+    dispatch(setResponseQraphql(response));
   };
 
   return (
     <div className="wrapper-main" data-testid="main-component">
       <div className="wrapper-main_apiUrl">
-        <button onClick={executeQuery}>Execute</button>
-
+        <button onClick={handleExecuteQuery}>
+          {translations[language].execute}
+        </button>
         <input
           placeholder="API URL"
           type="text"
@@ -171,6 +201,7 @@ const Main: React.FC = () => {
           data-testid="apiUrl-input"
         />
       </div>
+
       <div className="wrapper-main_content" ref={contentRef}>
         <div className="wrapper-main_content-slider">
           <div className="content-slider" onClick={toggleDocumentation}>
@@ -225,7 +256,7 @@ const Main: React.FC = () => {
                 className="item_variables_headers"
                 style={{ backgroundColor: variablesButtonColor }}
               >
-                Variables
+                {translations[language].variables}
               </button>
               <button
                 id="headers"
@@ -234,7 +265,7 @@ const Main: React.FC = () => {
                 className="item_variables_headers"
                 style={{ backgroundColor: headersButtonColor }}
               >
-                Headers
+                {translations[language].headers}
               </button>
             </div>
           </div>
@@ -266,7 +297,12 @@ const Main: React.FC = () => {
             </section>
           </div>
         </div>
-        <Response response={response} />
+        <Response
+          response={response}
+          resError={resError}
+          isLoading={isLoading}
+          apiUrl={apiUrl}
+        />
       </div>
     </div>
   );

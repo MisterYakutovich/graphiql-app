@@ -1,7 +1,8 @@
 import { FC, useContext, useState } from 'react';
-import { Context, useLanguage } from '../../main';
 import './Login.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useLanguage } from '../../context/LanguageProvider';
+import { Context } from '../../main';
 
 const Login: FC = () => {
   const { language, translations } = useLanguage();
@@ -22,7 +23,7 @@ const Login: FC = () => {
 
   return (
     <section className="section-form_login" data-testid="login-component">
-      <div className="form-login">
+      <form className="form-login">
         {error && <p className="error">{error.message}</p>}
         <div className="form-login_title">
           {' '}
@@ -66,7 +67,7 @@ const Login: FC = () => {
         <button className="submit_login" onClick={auth?.signInWithGoogle}>
           {translations[language].submit_login_2}
         </button>
-      </div>
+      </form>
     </section>
   );
 };

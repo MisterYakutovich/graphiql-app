@@ -55,4 +55,7 @@ export interface Translations {
   lowercase: string;
   uppercase: string;
   simbol: string;
+  variables: string;
+  headers: string;
+  execute: string;
 }

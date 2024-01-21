@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
-import { Context, ContextValue, LanguageContext, firebaseConfig } from './main';
+import { Context, ContextValue } from './main';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import Login from './components/login/Login';
@@ -10,6 +10,10 @@ import { Translations } from './types/translate';
 import Main from './pages/main/Main';
 import Register from './components/registration/Register';
 import Welcome from './pages/welcome/Welcome';
+import { firebaseConfig } from './firebase/firebase';
+import { LanguageContext } from './context/LanguageProvider';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 describe('App', () => {
   const firebaseApp = initializeApp(firebaseConfig);
@@ -73,6 +77,9 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text:
@@ -105,7 +112,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'Этот проект был написан',
-        about_title_span: 'разработчиком внешнего интерфейса:',
+        about_title_span:
+          'начинающий веб-разработчик, погружающийся в мир React',
         about_description_text: 'ПАВЕЛ ЯКУТОВИЧ',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -126,19 +134,27 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/login']}>
-        <Context.Provider value={auth}>
+        <Provider store={store}>
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Routes>
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </LanguageContext.Provider>
-        </Context.Provider>
+          ></LanguageContext.Provider>
+          <Context.Provider value={auth}>
+            <LanguageContext.Provider
+              value={{ language: 'EN', translations, changeLanguage: () => {} }}
+            >
+              <Routes>
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </LanguageContext.Provider>
+          </Context.Provider>
+        </Provider>
       </MemoryRouter>
     );
 
@@ -175,7 +191,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'This project was developed by',
-        about_title_span: 'frontend developers:',
+        about_title_span:
+          'an aspiring web developer diving into the world of React',
         about_description_text: 'PAVEL YAKUTOVICH',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -196,6 +213,9 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text:
@@ -228,7 +248,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'Этот проект был написан',
-        about_title_span: 'разработчиком внешнего интерфейса:',
+        about_title_span:
+          'начинающий веб-разработчик, погружающийся в мир React',
         about_description_text: 'ПАВЕЛ ЯКУТОВИЧ',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -249,19 +270,27 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/graphiql']}>
-        <Context.Provider value={auth}>
+        <Provider store={store}>
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Routes>
-              <Route path="/graphiql" element={<Main />} />
-            </Routes>
-          </LanguageContext.Provider>
-        </Context.Provider>
+          ></LanguageContext.Provider>
+          <Context.Provider value={auth}>
+            <LanguageContext.Provider
+              value={{ language: 'EN', translations, changeLanguage: () => {} }}
+            >
+              <Routes>
+                <Route path="/graphiql" element={<Main />} />
+              </Routes>
+            </LanguageContext.Provider>
+          </Context.Provider>
+        </Provider>
       </MemoryRouter>
     );
 
@@ -298,7 +327,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'This project was developed by',
-        about_title_span: 'frontend developers:',
+        about_title_span:
+          'an aspiring web developer diving into the world of React',
         about_description_text: 'PAVEL YAKUTOVICH',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -319,6 +349,9 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text:
@@ -351,7 +384,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'Этот проект был написан',
-        about_title_span: 'разработчиком внешнего интерфейса:',
+        about_title_span:
+          'начинающий веб-разработчик, погружающийся в мир React',
         about_description_text: 'ПАВЕЛ ЯКУТОВИЧ',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -372,19 +406,27 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/registration']}>
-        <Context.Provider value={auth}>
+        <Provider store={store}>
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Routes>
-              <Route path="/registration" element={<Register />} />
-            </Routes>
-          </LanguageContext.Provider>
-        </Context.Provider>
+          ></LanguageContext.Provider>
+          <Context.Provider value={auth}>
+            <LanguageContext.Provider
+              value={{ language: 'EN', translations, changeLanguage: () => {} }}
+            >
+              <Routes>
+                <Route path="/registration" element={<Register />} />
+              </Routes>
+            </LanguageContext.Provider>
+          </Context.Provider>
+        </Provider>
       </MemoryRouter>
     );
 
@@ -421,7 +463,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'This project was developed by',
-        about_title_span: 'frontend developers:',
+        about_title_span:
+          'an aspiring web developer diving into the world of React',
         about_description_text: 'PAVEL YAKUTOVICH',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -442,6 +485,9 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text:
@@ -474,7 +520,8 @@ describe('App', () => {
         course_description_text_7: '',
         course_description_text_8: '',
         about_title: 'Этот проект был написан',
-        about_title_span: 'разработчиком внешнего интерфейса:',
+        about_title_span:
+          'начинающий веб-разработчик, погружающийся в мир React',
         about_description_text: 'ПАВЕЛ ЯКУТОВИЧ',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -495,19 +542,27 @@ describe('App', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/']}>
-        <Context.Provider value={auth}>
+        <Provider store={store}>
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Routes>
-              <Route path="/" element={<Welcome />} />
-            </Routes>
-          </LanguageContext.Provider>
-        </Context.Provider>
+          ></LanguageContext.Provider>
+          <Context.Provider value={auth}>
+            <LanguageContext.Provider
+              value={{ language: 'EN', translations, changeLanguage: () => {} }}
+            >
+              <Routes>
+                <Route path="/" element={<Welcome />} />
+              </Routes>
+            </LanguageContext.Provider>
+          </Context.Provider>
+        </Provider>
       </MemoryRouter>
     );
 

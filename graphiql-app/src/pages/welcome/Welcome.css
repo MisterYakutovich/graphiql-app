@@ -1,6 +1,7 @@
 .welcome {
   position: relative;
-  height: 145vh;
+  /*height: 145vh;*/
+  height: 460px;
   left: 0px;
   top: 0px;
   background-color: #cbdfc7;
@@ -8,17 +9,17 @@
 }
 .welcome_section_title {
   position: relative;
-  top: 32px;
+  top: 10px;
   max-width: 1222px;
   margin: 0 auto;
 }
 .title {
   position: relative;
   text-align: center;
-  height: 101px;
+  /*height: 101px;*/
   font-family: 'Inter';
   font-style: normal;
-  font-size: 4vw;
+  font-size: 32px;
   font-weight: 700;
   color: #717171;
 }
@@ -27,10 +28,10 @@
 }
 .description {
   position: relative;
-  width: 80%;
+  /*width: 85%;*/
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
+  margin-top: 20px;
   text-align: center;
 }
 .description_text {
@@ -38,13 +39,12 @@
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
-
   line-height: 1.5;
   color: #636060;
 }
 .about {
   position: relative;
-  height: 500px;
+  height: 400px;
   left: 0px;
   top: 0px;
   background-color: beige;
@@ -52,7 +52,7 @@
 }
 .about_section_title {
   position: relative;
-  top: 130px;
+  top: 50px;
   width: 80%;
 
   margin: 0 auto;
@@ -62,7 +62,7 @@
   position: relative;
   font-size: 36px;
   line-height: 52px;
-  height: 102px;
+  /*height: 102px;*/
   color: chartreuse;
 }
 .about_title span {
@@ -75,7 +75,7 @@
   font-size: 24px;
   line-height: 50px;
   color: #636060;
-  margin-top: 40px;
+  /*margin-top: 40px;*/
 }
 
 .course-description {
@@ -140,36 +140,40 @@
     margin-bottom: 20px;
   }
 }
-
-@media screen and (max-width: 767px) {
-  .welcome_section_title {
-    top: 0;
-  }
-  .title {
-    height: 70px;
-  }
-  .description_text {
-    font-size: 20px;
-  }
-}
 @media screen and (max-width: 860px) {
   .about_title {
     font-size: 27px;
     line-height: 40px;
   }
 }
+@media screen and (max-width: 767px) {
+  .welcome {
+    height: 120vh;
+  }
+  .welcome_section_title {
+    top: 0;
+  }
+  .title {
+    font-size: 28px;
+  }
+  .description_text {
+    /*font-size: 20px;*/
+  }
+}
+
 @media screen and (max-width: 600px) {
   .title {
-    height: 50px;
+    /*height: 50px;*/
   }
 
   .description_text {
-    font-size: 18px;
+    /*font-size: 18px;*/
+    font-size: 22px;
   }
 }
 @media screen and (max-width: 450px) {
   .description_text {
-    font-size: 16px;
+    font-size: 18px;
   }
   .course-description_text {
     font-size: 18px;
@@ -189,15 +193,11 @@
     margin-top: 30px;
   }
   .about_description_text {
-    margin-top: 70px;
+    /*margin-top: 70px;*/
     font-size: 20px;
+    line-height: 40px;
   }
   .about_title {
-    height: 150px;
-  }
-}
-@media screen and (max-width: 450px) {
-  .title {
-    height: 40px;
+    /*height: 150px;*/
   }
 }

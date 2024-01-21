@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 import Welcome from './Welcome';
 import '@testing-library/jest-dom';
 import { Translations } from '../../types/translate';
-import { LanguageContext } from '../../main';
 import { MemoryRouter } from 'react-router-dom';
+import { LanguageContext } from '../../context/LanguageProvider';
 describe('Welcome component', () => {
   test('renders welcome text', () => {
     const translations: Record<string, Translations> = {
@@ -17,6 +17,11 @@ describe('Welcome component', () => {
         description_text_5: 'response section (query editor / JSON viewer);',
         description_text_6:
           'possibility to change to a different user-specified API endpoint;',
+
+        about_title: 'This project was developed by',
+        about_title_span:
+          'an aspiring web developer diving into the world of React',
+        about_description_text: 'PAVEL YAKUTOVICH',
         title: '',
         title_span: '',
         title_1: '',
@@ -35,9 +40,6 @@ describe('Welcome component', () => {
         course_description_text_6: '',
         course_description_text_7: '',
         course_description_text_8: '',
-        about_title: 'This project was developed by',
-        about_title_span: 'frontend developers:',
-        about_description_text: 'PAVEL YAKUTOVICH',
         about_description_text_2: '',
         about_description_text_3: '',
         form_login_title: '',
@@ -57,6 +59,9 @@ describe('Welcome component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: 'variables',
+        headers: 'headers',
+        execute: 'Execute',
       },
       RU: {
         description_text:
@@ -65,7 +70,7 @@ describe('Welcome component', () => {
           'редактор запросов (редактор запросов/просмотрщик JSON);',
         description_text_2: 'редактор переменных;',
         description_text_3: 'редактор заголовков;',
-        description_text_4: 'Проводник документации;',
+        description_text_4: 'проводник документации;',
         description_text_5:
           'раздел ответа (редактор запросов/просмотрщик JSON);',
         description_text_6:
@@ -88,8 +93,9 @@ describe('Welcome component', () => {
         course_description_text_6: '',
         course_description_text_7: '',
         course_description_text_8: '',
-        about_title: 'Этот проект был написан',
-        about_title_span: 'разработчиком внешнего интерфейса:',
+        about_title: 'Этот проект разработал',
+        about_title_span:
+          'начинающий веб-разработчик, погружающийся в мир React',
         about_description_text: 'ПАВЕЛ ЯКУТОВИЧ',
         about_description_text_2: '',
         about_description_text_3: '',
@@ -110,6 +116,9 @@ describe('Welcome component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: 'переменные',
+        headers: 'заголовоки',
+        execute: 'Выполнить',
       },
     };
     const { getByText } = render(
@@ -180,7 +189,9 @@ describe('Welcome component', () => {
     ).toBeInTheDocument();
     expect(
       getByText((content) => {
-        return content.includes('frontend developers:');
+        return content.includes(
+          'an aspiring web developer diving into the world of React'
+        );
       })
     ).toBeInTheDocument();
     expect(

@@ -1,8 +1,9 @@
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Login from '../login/Login';
-import { LanguageContext } from '../../main';
+
 import { Translations } from '../../types/translate';
+import { LanguageContext } from '../../context/LanguageProvider';
 
 test('renders login form', () => {
   const translations: Record<string, Translations> = {
@@ -54,6 +55,9 @@ test('renders login form', () => {
       lowercase: '',
       uppercase: '',
       simbol: '',
+      variables: '',
+      headers: '',
+      execute: '',
     },
     RU: {
       description_text: '',
@@ -103,6 +107,9 @@ test('renders login form', () => {
       lowercase: '',
       uppercase: '',
       simbol: '',
+      variables: '',
+      headers: '',
+      execute: '',
     },
   };
 
@@ -169,6 +176,9 @@ test('can type in email and password fields', () => {
       lowercase: '',
       uppercase: '',
       simbol: '',
+      variables: '',
+      headers: '',
+      execute: '',
     },
     RU: {
       description_text: '',
@@ -218,6 +228,9 @@ test('can type in email and password fields', () => {
       lowercase: '',
       uppercase: '',
       simbol: '',
+      variables: '',
+      headers: '',
+      execute: '',
     },
   };
   const { getByLabelText } = render(
@@ -286,6 +299,9 @@ test('submits login form with email and password', async () => {
       lowercase: '',
       uppercase: '',
       simbol: '',
+      variables: '',
+      headers: '',
+      execute: '',
     },
     RU: {
       description_text: '',
@@ -335,6 +351,9 @@ test('submits login form with email and password', async () => {
       lowercase: '',
       uppercase: '',
       simbol: '',
+      variables: '',
+      headers: '',
+      execute: '',
     },
   };
   const { getByText, getByLabelText } = render(

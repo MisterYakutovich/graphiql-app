@@ -2,8 +2,9 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import Register from './Register';
 import '@testing-library/jest-dom';
 import { Translations } from '../../types/translate';
-import { LanguageContext } from '../../main';
+
 import { MemoryRouter } from 'react-router-dom';
+import { LanguageContext } from '../../context/LanguageProvider';
 
 describe('Register component', () => {
   test('renders register form', () => {
@@ -56,6 +57,9 @@ describe('Register component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text_1: '',
@@ -105,6 +109,9 @@ describe('Register component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const { getByLabelText, getByText } = render(
@@ -174,6 +181,9 @@ describe('Register component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text_1: '',
@@ -223,6 +233,9 @@ describe('Register component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const { getByLabelText, getByText } = render(

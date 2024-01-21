@@ -1,5 +1,7 @@
-import { FC, StrictMode, createContext, useContext, useState } from 'react';
 import App from './App.tsx';
+import { StrictMode, createContext } from 'react';
+import { store } from './redux/store.ts';
+import { Provider } from 'react-redux';
 import { initializeApp } from 'firebase/app';
 import {
   Auth,
@@ -16,47 +18,10 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import enData from '../src/components/localization/json/en.json';
-import ruData from '../src/components/localization/json/ru.json';
-import {
-  LanguageContextProps,
-  LanguageProviderProps,
-  Translations,
-} from './types/translate.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
 import { createRoot } from 'react-dom/client';
-
-export const LanguageContext = createContext<LanguageContextProps | undefined>(
-  undefined
-);
-
-export const useLanguage = (): LanguageContextProps => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
-
-export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<string>('EN');
-  const translations: Record<string, Translations> = {
-    EN: enData,
-    RU: ruData,
-  };
-  const changeLanguage = (newLanguage: string) => {
-    setLanguage(newLanguage);
-  };
-
-  return (
-    <LanguageContext.Provider
-      value={{ language, translations, changeLanguage }}
-    >
-      {children}
-    </LanguageContext.Provider>
-  );
-};
+import { firebaseConfig } from './firebase/firebase.ts';
+import LanguageProvider from './context/LanguageProvider.tsx';
 
 export interface ContextValue {
   auth: Auth;
@@ -64,15 +29,6 @@ export interface ContextValue {
   signInWithGoogle: () => Promise<void>;
 }
 
-export const firebaseConfig = {
-  apiKey: 'AIzaSyCgcg4liT5oqSclmnlNPbILgECwGp43xxI',
-  authDomain: 'graphql-cfa62.firebaseapp.com',
-  projectId: 'graphql-cfa62',
-  storageBucket: 'graphql-cfa62.appspot.com',
-  messagingSenderId: '557793702995',
-  appId: '1:557793702995:web:fd417292d6115d86edc2a6',
-  measurementId: 'G-EM419SR6C5',
-};
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -105,12 +61,14 @@ const rootElement =
 const root = createRoot(rootElement);
 root.render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <Context.Provider value={{ auth, db, signInWithGoogle }}>
-          <App />
-        </Context.Provider>
-      </LanguageProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <LanguageProvider>
+          <Context.Provider value={{ auth, db, signInWithGoogle }}>
+            <App />
+          </Context.Provider>
+        </LanguageProvider>
+      </QueryClientProvider>
+    </Provider>
   </StrictMode>
 );

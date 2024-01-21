@@ -10,7 +10,7 @@
   "title_span": "about",
   "title_1": "this project",
   "signOut": "SIGN OUT",
-  "welcome": "WELCOME",
+  "welcome": "ABOUT",
   "main": "MAIN",
   "signIn": "SIGN IN",
   "signup": "SIGN UP",
@@ -25,7 +25,7 @@
   "course_description_text_7": "Chrome DevTools, Figma;",
   "course_description_text_8": "Understanding of the REST;",
   "about_title": "This project was developed by",
-  "about_title_span": "frontend developers:",
+  "about_title_span": "an aspiring web developer diving into the world of React",
   "about_description_text": "PAVEL YAKUTOVICH",
   "about_description_text_2": "STUDENT 2",
   "about_description_text_3": "STUDENT 3",
@@ -48,5 +48,8 @@
   "digit": "digit",
   "lowercase": "lowercase",
   "uppercase": "uppercase",
-  "simbol": "simbol"
+  "simbol": "simbol",
+  "variables": "variables",
+  "headers": "headers",
+  "execute": "Execute"
 }

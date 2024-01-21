@@ -3,15 +3,12 @@ import '@testing-library/jest-dom';
 import Header from './Header';
 import { MemoryRouter } from 'react-router-dom';
 import { Translations } from '../../types/translate';
-import {
-  Context,
-  ContextValue,
-  LanguageContext,
-  firebaseConfig,
-} from '../../main';
+import { Context, ContextValue } from '../../main';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../firebase/firebase';
+import { LanguageContext } from '../../context/LanguageProvider';
 describe('Header component', () => {
   it('renders welcome link and language switcher', () => {
     const translations: Record<string, Translations> = {
@@ -27,7 +24,7 @@ describe('Header component', () => {
         title_span: '',
         title_1: '',
         signOut: '',
-        welcome: 'WELCOME',
+        welcome: 'ABOUT',
         main: '',
         signIn: '',
         signup: '',
@@ -63,6 +60,9 @@ describe('Header component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text: '',
@@ -76,7 +76,7 @@ describe('Header component', () => {
         title_span: '',
         title_1: '',
         signOut: '',
-        welcome: 'ЖЕЛАННЫЙ',
+        welcome: 'О НАС',
         main: '',
         signIn: '',
         signup: '',
@@ -112,6 +112,9 @@ describe('Header component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const firebaseApp = initializeApp(firebaseConfig);
@@ -136,7 +139,7 @@ describe('Header component', () => {
       </MemoryRouter>
     );
 
-    expect(getByText('WELCOME')).toBeInTheDocument();
+    expect(getByText('ABOUT')).toBeInTheDocument();
     expect(getByText('EN')).toBeInTheDocument();
   });
 
@@ -154,7 +157,7 @@ describe('Header component', () => {
         title_span: '',
         title_1: '',
         signOut: '',
-        welcome: 'WELCOME',
+        welcome: 'ABOUT',
         main: '',
         signIn: 'SIGN IN',
         signup: 'SIGN UP',
@@ -190,6 +193,9 @@ describe('Header component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text: '',
@@ -203,7 +209,7 @@ describe('Header component', () => {
         title_span: '',
         title_1: '',
         signOut: '',
-        welcome: 'ЖЕЛАННЫЙ',
+        welcome: 'О НАС',
         main: '',
         signIn: 'ВХОД',
         signup: 'РЕГИСТРАЦИЯ',
@@ -239,6 +245,9 @@ describe('Header component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const firebaseApp = initializeApp(firebaseConfig);
@@ -281,7 +290,7 @@ describe('Header component', () => {
         title_span: '',
         title_1: '',
         signOut: 'SIGN OUT',
-        welcome: 'WELCOME',
+        welcome: 'ABOUT',
         main: 'MAIN',
         signIn: 'SIGN IN',
         signup: 'SIGN UP',
@@ -317,6 +326,9 @@ describe('Header component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
       RU: {
         description_text: '',
@@ -330,7 +342,7 @@ describe('Header component', () => {
         title_span: '',
         title_1: '',
         signOut: 'ВЫХОД',
-        welcome: 'ЖЕЛАННЫЙ',
+        welcome: 'О НАС',
         main: 'ОСНОВНАЯ',
         signIn: 'ВХОД',
         signup: 'РЕГИСТРАЦИЯ',
@@ -366,6 +378,9 @@ describe('Header component', () => {
         lowercase: '',
         uppercase: '',
         simbol: '',
+        variables: '',
+        headers: '',
+        execute: '',
       },
     };
     const firebaseApp = initializeApp(firebaseConfig);
@@ -390,7 +405,7 @@ describe('Header component', () => {
       </MemoryRouter>
     );
     await act(() => {
-      fireEvent.click(getByText('WELCOME'));
+      fireEvent.click(getByText('ABOUT'));
       fireEvent.click(getByText('SIGN IN'));
       fireEvent.click(getByText('SIGN UP'));
     });

@@ -7,7 +7,14 @@ describe('Response component', () => {
     const response = 'Test response';
     localStorage.setItem('response', JSON.stringify(response));
 
-    render(<Response response={response} />);
+    render(
+      <Response
+        response={response}
+        resError={null}
+        isLoading={false}
+        apiUrl={''}
+      />
+    );
 
     const responseInputs = screen.getAllByTestId('response');
     responseInputs.forEach((input) => {
@@ -20,7 +27,14 @@ describe('Response component', () => {
     const newResponse = 'New response';
     localStorage.setItem('response', JSON.stringify(response));
 
-    const { rerender } = render(<Response response={response} />);
+    const { rerender } = render(
+      <Response
+        response={response}
+        resError={null}
+        isLoading={false}
+        apiUrl={''}
+      />
+    );
 
     const responseInputs = screen.getAllByTestId('response');
     responseInputs.forEach((input) => {
@@ -28,7 +42,14 @@ describe('Response component', () => {
     });
 
     localStorage.setItem('response', JSON.stringify(newResponse));
-    rerender(<Response response={newResponse} />);
+    rerender(
+      <Response
+        response={newResponse}
+        resError={null}
+        isLoading={false}
+        apiUrl={''}
+      />
+    );
 
     const updatedResponseInputs = screen.getAllByTestId('response');
     updatedResponseInputs.forEach((input) => {
