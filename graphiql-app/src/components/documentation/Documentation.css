@@ -1,0 +1,28 @@
+.wrapper-main_documentation {
+  border-radius: 8px;
+  color: #e06733;
+  border-radius: 8px;
+  border: 1px solid #717171;
+  overflow-x: auto;
+}
+.wrapper-main_documentation pre {
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 15px;
+}
+.error-message {
+  color: #e06733;
+}
+@media screen and (max-width: 600px) {
+  .wrapper-main_documentation pre {
+    font-size: 12px;
+  }
+  .error-message {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .wrapper-main_documentation pre {
+    font-size: 11px;
+  }
+}
