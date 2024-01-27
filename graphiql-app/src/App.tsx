@@ -12,16 +12,16 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Page_404 from './pages/page_404/Page_404';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { FC, useContext } from 'react';
-import { Context } from './main';
+import { FC } from 'react';
+
 import Loader from './components/loader/Loader';
 import Register from './components/registration/Register';
 import Main from './pages/main/Main';
+import { auth } from './main';
 
 const App: FC = () => {
-  const auth = useContext(Context);
+  const [user, loading] = useAuthState(auth);
 
-  const [user, loading] = useAuthState(auth!.auth);
   if (loading) {
     return <Loader />;
   }

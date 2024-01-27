@@ -23,9 +23,9 @@
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
-            <span class="strong">86.95% </span>
+            <span class="strong">85.71% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">20/23</span>
+            <span class="fraction">18/21</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -41,9 +41,9 @@
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">86.95% </span>
+            <span class="strong">85.71% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">20/23</span>
+            <span class="fraction">18/21</span>
           </div>
         </div>
         <p class="quiet">
@@ -130,7 +130,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -139,7 +140,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,16 +187,16 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Page_404 from './pages/page_404/Page_404';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { FC, useContext } from 'react';
-import { Context } from './main';
+import { FC } from 'react';
+&nbsp;
 import Loader from './components/loader/Loader';
 import Register from './components/registration/Register';
 import Main from './pages/main/Main';
+import { auth } from './main';
 &nbsp;
 const App: FC = () =&gt; {
-  const auth = useContext(Context);
+  const [user, loading] = useAuthState(auth);
 &nbsp;
-  const [user, loading] = useAuthState(auth!.auth);
   if (loading) {
     return &lt;Loader /&gt;;
   }
@@ -244,7 +244,7 @@ export default App;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-01-21T09:47:10.499Z
+      at 2024-01-27T12:38:02.588Z
     </div>
     <script src="../prettify.js"></script>
     <script>

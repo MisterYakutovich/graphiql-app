@@ -82,11 +82,7 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -96,10 +92,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,11 +114,7 @@ interface ResponseProps {
   isLoading: boolean;
   apiUrl: string;
 }
-const Response: FC&lt;ResponseProps&gt; = ({
-  response,
-  resError,
-  isLoading,
-}) =&gt; {
+const Response: FC&lt;ResponseProps&gt; = ({ response, resError, isLoading }) =&gt; {
   return (
     &lt;div className="wrapper-main_json" data-testid="response"&gt;
       {isLoading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;div&gt;Loading...&lt;/div&gt;}</span>
@@ -154,7 +142,7 @@ export default Response;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-01-21T09:47:10.499Z
+      at 2024-01-27T12:38:02.588Z
     </div>
     <script src="../../../prettify.js"></script>
     <script>

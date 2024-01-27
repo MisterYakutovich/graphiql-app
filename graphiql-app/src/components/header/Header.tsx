@@ -6,23 +6,23 @@ import {
   REGISTRATION_ROUTE,
   WELCOME_ROUTE,
 } from '../../utils/consts';
-import { FC, useContext, useEffect } from 'react';
-//import { Context, useLanguage } from '../../main';
+import { FC, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SwitchLanguages from '../localization/Languages';
 import { useLanguage } from '../../context/LanguageProvider';
-import { Context } from '../../main';
+import { auth } from '../../main';
 
 const Header: FC = () => {
-  const auth = useContext(Context);
   const { language, translations } = useLanguage();
-  const [userAuth, loading] = useAuthState(auth!.auth);
+  const [userAuth, loading] = useAuthState(auth);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     if (loading) {
       return;
     }
+
     if (userAuth) navigate(`${MAIN_ROUTE}`);
   }, [userAuth, loading]);
   return (
@@ -50,7 +50,7 @@ const Header: FC = () => {
                     </button>
                   </Link>
                   <button
-                    onClick={() => auth?.auth.signOut()}
+                    onClick={() => auth.signOut()}
                     className="button"
                     data-testid="signOut-button"
                   >

@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import './Register.css';
@@ -9,11 +9,12 @@ import IFormInput from '../../types/interfase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLanguage } from '../../context/LanguageProvider';
-import { Context } from '../../main';
+
+import { auth, db, signInWithGoogle } from '../../main';
 
 const Register: FC = () => {
   const { language, translations } = useLanguage();
-  const auth = useContext(Context);
+
   const [errors, setErrors] = useState<IFormInput>({
     firstName: '',
     email: '',
@@ -58,13 +59,9 @@ const Register: FC = () => {
     password: string
   ) => {
     try {
-      const res = await createUserWithEmailAndPassword(
-        auth!.auth,
-        email,
-        password
-      );
+      const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
-      await addDoc(collection(auth!.db, 'users'), {
+      await addDoc(collection(db, 'users'), {
         uid: user.uid,
         name,
         authProvider: 'local',
@@ -180,7 +177,7 @@ const Register: FC = () => {
         <button disabled={!isValid} className="submit" onClick={registration}>
           {translations[language].submit}
         </button>
-        <button className="submit" onClick={auth?.signInWithGoogle}>
+        <button className="submit" onClick={signInWithGoogle}>
           {translations[language].submit_2}
         </button>
         <p className="back_sign_in">

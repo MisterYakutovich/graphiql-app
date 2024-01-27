@@ -4,6 +4,7 @@ import Login from '../login/Login';
 
 import { Translations } from '../../types/translate';
 import { LanguageContext } from '../../context/LanguageProvider';
+import { MemoryRouter } from 'react-router-dom';
 
 test('renders login form', () => {
   const translations: Record<string, Translations> = {
@@ -114,11 +115,13 @@ test('renders login form', () => {
   };
 
   const { getByText, getByLabelText } = render(
-    <LanguageContext.Provider
-      value={{ language: 'EN', translations, changeLanguage: () => {} }}
-    >
-      <Login />
-    </LanguageContext.Provider>
+    <MemoryRouter>
+      <LanguageContext.Provider
+        value={{ language: 'EN', translations, changeLanguage: () => {} }}
+      >
+        <Login />
+      </LanguageContext.Provider>
+    </MemoryRouter>
   );
   expect(getByLabelText('Email')).toBeInTheDocument();
   expect(getByText('Login')).toBeInTheDocument();
@@ -234,11 +237,13 @@ test('can type in email and password fields', () => {
     },
   };
   const { getByLabelText } = render(
-    <LanguageContext.Provider
-      value={{ language: 'EN', translations, changeLanguage: () => {} }}
-    >
-      <Login />
-    </LanguageContext.Provider>
+    <MemoryRouter>
+      <LanguageContext.Provider
+        value={{ language: 'EN', translations, changeLanguage: () => {} }}
+      >
+        <Login />
+      </LanguageContext.Provider>
+    </MemoryRouter>
   );
   const emailInput = getByLabelText('Email') as HTMLInputElement;
   const passwordInput = getByLabelText('Password') as HTMLInputElement;
@@ -357,11 +362,13 @@ test('submits login form with email and password', async () => {
     },
   };
   const { getByText, getByLabelText } = render(
-    <LanguageContext.Provider
-      value={{ language: 'EN', translations, changeLanguage: () => {} }}
-    >
-      <Login />
-    </LanguageContext.Provider>
+    <MemoryRouter>
+      <LanguageContext.Provider
+        value={{ language: 'EN', translations, changeLanguage: () => {} }}
+      >
+        <Login />
+      </LanguageContext.Provider>
+    </MemoryRouter>
   );
   const emailInput = getByLabelText('Email') as HTMLInputElement;
   const passwordInput = getByLabelText('Password') as HTMLInputElement;

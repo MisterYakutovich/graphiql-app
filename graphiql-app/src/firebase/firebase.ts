@@ -7,3 +7,12 @@ export const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+/*export const firebaseConfig = {
+  apiKey: 'AIzaSyBZeWxA5HV5D00A9csdC4h_CPM5849Tnoo',
+  authDomain: 'graphiql-701e7.firebaseapp.com',
+  projectId: 'graphiql-701e7',
+  storageBucket: 'graphiql-701e7.appspot.com',
+  messagingSenderId: '392921772253',
+  appId: '1:392921772253:web:c4239fcb48ff74e92d6b34',
+  measurementId: 'G-V3KXGQFPKX',
+};*/

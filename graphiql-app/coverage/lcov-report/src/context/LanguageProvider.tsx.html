@@ -94,18 +94,25 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,42 +136,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, createContext, useContext, useState } from "react";
-import { LanguageContextProps, LanguageProviderProps, Translations } from "../types/translate";
-import enData from "../components/localization/json/en.json"
-import ruData from "../components/localization/json/ru.json"
-&nbsp;
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, createContext, useContext, useState } from 'react';
+import {
+  LanguageContextProps,
+  LanguageProviderProps,
+  Translations,
+} from '../types/translate';
+import enData from '../components/localization/json/en.json';
+import ruData from '../components/localization/json/ru.json';
 &nbsp;
 export const useLanguage = (): LanguageContextProps =&gt; {
-    const context = useContext(LanguageContext);
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!context) {
-<span class="cstat-no" title="statement not covered" >      throw new Error('useLanguage must be used within a LanguageProvider');</span>
-    }
-    return context;
+  const context = useContext(LanguageContext);
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!context) {
+<span class="cstat-no" title="statement not covered" >    throw new Error('useLanguage must be used within a LanguageProvider');</span>
+  }
+  return context;
+};
+export const LanguageContext = createContext&lt;LanguageContextProps | undefined&gt;(
+  undefined
+);
+&nbsp;
+const LanguageProvider: FC&lt;LanguageProviderProps&gt; = ({ children }) =&gt; {
+  const [language, setLanguage] = useState&lt;string&gt;('EN');
+  const translations: Record&lt;string, Translations&gt; = {
+    EN: enData,
+    RU: ruData,
   };
-  export const LanguageContext = createContext&lt;LanguageContextProps | undefined&gt;(
-    undefined
+  const changeLanguage = <span class="fstat-no" title="function not covered" >(n</span>ewLanguage: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >    setLanguage(newLanguage);</span>
+  };
+&nbsp;
+  return (
+    &lt;LanguageContext.Provider
+      value={{ language, translations, changeLanguage }}
+    &gt;
+      {children}
+    &lt;/LanguageContext.Provider&gt;
   );
-  
-   const LanguageProvider: FC&lt;LanguageProviderProps&gt; = ({ children }) =&gt; {
-    const [language, setLanguage] = useState&lt;string&gt;('EN');
-    const translations: Record&lt;string, Translations&gt; = {
-      EN: enData,
-      RU: ruData,
-    };
-    const changeLanguage = <span class="fstat-no" title="function not covered" >(n</span>ewLanguage: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      setLanguage(newLanguage);</span>
-    };
-  
-    return (
-      &lt;LanguageContext.Provider
-        value={{ language, translations, changeLanguage }}
-      &gt;
-        {children}
-      &lt;/LanguageContext.Provider&gt;
-    );
-  };
-  export default LanguageProvider</pre></td></tr></table></pre>
+};
+export default LanguageProvider;
+&nbsp;</pre></td></tr></table></pre>
 
       <div class="push"></div>
       <!-- for sticky footer -->
@@ -178,7 +190,7 @@ export const useLanguage = (): LanguageContextProps =&gt; {
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-01-21T09:47:10.499Z
+      at 2024-01-27T12:38:02.588Z
     </div>
     <script src="../../prettify.js"></script>
     <script>

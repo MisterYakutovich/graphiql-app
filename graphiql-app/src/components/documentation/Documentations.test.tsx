@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Documentation from './Documentation';
 
 describe('Documentation component', () => {
@@ -18,13 +18,13 @@ describe('Documentation component', () => {
     });
 
     const { findByText } = render(<Documentation apiUrl={apiUrl} />);
-
-    await waitFor(async () => {
-      expect(fetch).toHaveBeenCalledWith(apiUrl, expect.any(Object));
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(await findByText('Type1')).toBeInTheDocument();
-      expect(await findByText('Type2')).toBeInTheDocument();
-    });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    // await waitFor(async () => {
+    expect(fetch).toHaveBeenCalledWith(apiUrl, expect.any(Object));
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(await findByText('Type1')).toBeInTheDocument();
+    expect(await findByText('Type2')).toBeInTheDocument();
+    // });
   });
 
   it('handles error when fetching schema', async () => {
@@ -35,15 +35,15 @@ describe('Documentation component', () => {
     const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
     render(<Documentation apiUrl={apiUrl} />);
-
-    await waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith(apiUrl, expect.any(Object));
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Error fetching schema:',
-        expect.any(Error)
-      );
-    });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    // await waitFor(() => {
+    expect(fetch).toHaveBeenCalledWith(apiUrl, expect.any(Object));
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Error fetching schema:',
+      expect.any(Error)
+    );
+    // });
 
     consoleErrorSpy.mockRestore();
   });

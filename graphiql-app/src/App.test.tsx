@@ -1,30 +1,18 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
-import { Context, ContextValue } from './main';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+
 import Login from './components/login/Login';
 import { Translations } from './types/translate';
 import Main from './pages/main/Main';
 import Register from './components/registration/Register';
 import Welcome from './pages/welcome/Welcome';
-import { firebaseConfig } from './firebase/firebase';
+
 import { LanguageContext } from './context/LanguageProvider';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
 describe('App', () => {
-  const firebaseApp = initializeApp(firebaseConfig);
-  const firestore = getFirestore(firebaseApp);
-  const auth: ContextValue = {
-    auth: getAuth(),
-    db: firestore,
-    signInWithGoogle: function (): Promise<void> {
-      throw new Error('Function not implemented.');
-    },
-  };
   test('renders correct routes', () => {
     const translations: Record<string, Translations> = {
       EN: {
@@ -145,15 +133,14 @@ describe('App', () => {
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
           ></LanguageContext.Provider>
-          <Context.Provider value={auth}>
-            <LanguageContext.Provider
-              value={{ language: 'EN', translations, changeLanguage: () => {} }}
-            >
-              <Routes>
-                <Route path="/login" element={<Login />} />
-              </Routes>
-            </LanguageContext.Provider>
-          </Context.Provider>
+
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Routes>
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </LanguageContext.Provider>
         </Provider>
       </MemoryRouter>
     );
@@ -281,15 +268,14 @@ describe('App', () => {
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
           ></LanguageContext.Provider>
-          <Context.Provider value={auth}>
-            <LanguageContext.Provider
-              value={{ language: 'EN', translations, changeLanguage: () => {} }}
-            >
-              <Routes>
-                <Route path="/graphiql" element={<Main />} />
-              </Routes>
-            </LanguageContext.Provider>
-          </Context.Provider>
+
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Routes>
+              <Route path="/graphiql" element={<Main />} />
+            </Routes>
+          </LanguageContext.Provider>
         </Provider>
       </MemoryRouter>
     );
@@ -417,15 +403,14 @@ describe('App', () => {
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
           ></LanguageContext.Provider>
-          <Context.Provider value={auth}>
-            <LanguageContext.Provider
-              value={{ language: 'EN', translations, changeLanguage: () => {} }}
-            >
-              <Routes>
-                <Route path="/registration" element={<Register />} />
-              </Routes>
-            </LanguageContext.Provider>
-          </Context.Provider>
+
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Routes>
+              <Route path="/registration" element={<Register />} />
+            </Routes>
+          </LanguageContext.Provider>
         </Provider>
       </MemoryRouter>
     );
@@ -553,15 +538,14 @@ describe('App', () => {
           <LanguageContext.Provider
             value={{ language: 'EN', translations, changeLanguage: () => {} }}
           ></LanguageContext.Provider>
-          <Context.Provider value={auth}>
-            <LanguageContext.Provider
-              value={{ language: 'EN', translations, changeLanguage: () => {} }}
-            >
-              <Routes>
-                <Route path="/" element={<Welcome />} />
-              </Routes>
-            </LanguageContext.Provider>
-          </Context.Provider>
+
+          <LanguageContext.Provider
+            value={{ language: 'EN', translations, changeLanguage: () => {} }}
+          >
+            <Routes>
+              <Route path="/" element={<Welcome />} />
+            </Routes>
+          </LanguageContext.Provider>
         </Provider>
       </MemoryRouter>
     );

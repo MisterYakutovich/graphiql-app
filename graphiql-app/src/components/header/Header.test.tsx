@@ -3,11 +3,7 @@ import '@testing-library/jest-dom';
 import Header from './Header';
 import { MemoryRouter } from 'react-router-dom';
 import { Translations } from '../../types/translate';
-import { Context, ContextValue } from '../../main';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase/firebase';
+
 import { LanguageContext } from '../../context/LanguageProvider';
 describe('Header component', () => {
   it('renders welcome link and language switcher', () => {
@@ -117,25 +113,14 @@ describe('Header component', () => {
         execute: '',
       },
     };
-    const firebaseApp = initializeApp(firebaseConfig);
-    const firestore = getFirestore(firebaseApp);
-    const auth: ContextValue = {
-      auth: getAuth(),
-      db: firestore,
-      signInWithGoogle: function (): Promise<void> {
-        throw new Error('Function not implemented.');
-      },
-    };
 
     const { getByText } = render(
       <MemoryRouter>
-        <Context.Provider value={auth}>
-          <LanguageContext.Provider
-            value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Header />
-          </LanguageContext.Provider>
-        </Context.Provider>
+        <LanguageContext.Provider
+          value={{ language: 'EN', translations, changeLanguage: () => {} }}
+        >
+          <Header />
+        </LanguageContext.Provider>
       </MemoryRouter>
     );
 
@@ -250,25 +235,14 @@ describe('Header component', () => {
         execute: '',
       },
     };
-    const firebaseApp = initializeApp(firebaseConfig);
-    const firestore = getFirestore(firebaseApp);
-    const auth: ContextValue = {
-      auth: getAuth(),
-      db: firestore,
-      signInWithGoogle: function (): Promise<void> {
-        throw new Error('Function not implemented.');
-      },
-    };
 
     const { getByTestId } = render(
       <MemoryRouter>
-        <Context.Provider value={auth}>
-          <LanguageContext.Provider
-            value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Header />
-          </LanguageContext.Provider>
-        </Context.Provider>
+        <LanguageContext.Provider
+          value={{ language: 'EN', translations, changeLanguage: () => {} }}
+        >
+          <Header />
+        </LanguageContext.Provider>
       </MemoryRouter>
     );
 
@@ -383,25 +357,14 @@ describe('Header component', () => {
         execute: '',
       },
     };
-    const firebaseApp = initializeApp(firebaseConfig);
-    const firestore = getFirestore(firebaseApp);
-    const auth: ContextValue = {
-      auth: getAuth(),
-      db: firestore,
-      signInWithGoogle: function (): Promise<void> {
-        throw new Error('Function not implemented.');
-      },
-    };
 
     const { getByText } = render(
       <MemoryRouter>
-        <Context.Provider value={auth}>
-          <LanguageContext.Provider
-            value={{ language: 'EN', translations, changeLanguage: () => {} }}
-          >
-            <Header />
-          </LanguageContext.Provider>
-        </Context.Provider>
+        <LanguageContext.Provider
+          value={{ language: 'EN', translations, changeLanguage: () => {} }}
+        >
+          <Header />
+        </LanguageContext.Provider>
       </MemoryRouter>
     );
     await act(() => {

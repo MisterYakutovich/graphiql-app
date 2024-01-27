@@ -25,9 +25,9 @@
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
-            <span class="strong">74.54% </span>
+            <span class="strong">74.07% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">41/55</span>
+            <span class="fraction">40/54</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -43,9 +43,9 @@
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">76.92% </span>
+            <span class="strong">76.47% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">40/52</span>
+            <span class="fraction">39/51</span>
           </div>
         </div>
         <p class="quiet">
@@ -255,10 +255,7 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -269,11 +266,12 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,10 +317,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -455,7 +449,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, useContext, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, useState } from 'react';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import './Register.css';
@@ -466,11 +460,12 @@ import IFormInput from '../../types/interfase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLanguage } from '../../context/LanguageProvider';
-import { Context } from '../../main';
+&nbsp;
+import { auth, db, signInWithGoogle } from '../../main';
 &nbsp;
 const Register: FC = () =&gt; {
   const { language, translations } = useLanguage();
-  const auth = useContext(Context);
+&nbsp;
   const [errors, setErrors] = useState&lt;IFormInput&gt;({
     firstName: '',
     email: '',
@@ -515,13 +510,9 @@ const Register: FC = () =&gt; {
     password: string
   ) =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
-      const res = <span class="cstat-no" title="statement not covered" >await createUserWithEmailAndPassword(</span>
-        auth!.auth,
-        email,
-        password
-      );
+      const res = <span class="cstat-no" title="statement not covered" >await createUserWithEmailAndPassword(auth, email, password);</span>
       const user = <span class="cstat-no" title="statement not covered" >res.user;</span>
-<span class="cstat-no" title="statement not covered" >      await addDoc(collection(auth!.db, 'users'), {</span>
+<span class="cstat-no" title="statement not covered" >      await addDoc(collection(db, 'users'), {</span>
         uid: user.uid,
         name,
         authProvider: 'local',
@@ -637,7 +628,7 @@ const Register: FC = () =&gt; {
         &lt;button disabled={!isValid} className="submit" onClick={registration}&gt;
           {translations[language].submit}
         &lt;/button&gt;
-        &lt;button className="submit" onClick={auth?.signInWithGoogle}&gt;
+        &lt;button className="submit" onClick={signInWithGoogle}&gt;
           {translations[language].submit_2}
         &lt;/button&gt;
         &lt;p className="back_sign_in"&gt;
@@ -666,7 +657,7 @@ export default Register;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-01-21T09:47:10.499Z
+      at 2024-01-27T12:38:02.588Z
     </div>
     <script src="../../../prettify.js"></script>
     <script>

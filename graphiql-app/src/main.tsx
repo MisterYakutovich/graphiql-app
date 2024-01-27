@@ -1,16 +1,10 @@
 import App from './App.tsx';
-import { StrictMode, createContext } from 'react';
+import { StrictMode } from 'react';
 import { store } from './redux/store.ts';
 import { Provider } from 'react-redux';
 import { initializeApp } from 'firebase/app';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import {
-  Auth,
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-} from 'firebase/auth';
-import {
-  Firestore,
   addDoc,
   collection,
   getDocs,
@@ -23,17 +17,15 @@ import { createRoot } from 'react-dom/client';
 import { firebaseConfig } from './firebase/firebase.ts';
 import LanguageProvider from './context/LanguageProvider.tsx';
 
-export interface ContextValue {
-  auth: Auth;
-  db: Firestore;
-  signInWithGoogle: () => Promise<void>;
-}
-
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
-const signInWithGoogle = async () => {
+
+export const signInWithGoogle = async (
+  e: React.MouseEvent<HTMLButtonElement>
+) => {
+  e.preventDefault();
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -53,8 +45,9 @@ const signInWithGoogle = async () => {
     return;
   }
 };
+
 const queryClient = new QueryClient();
-export const Context = createContext<ContextValue | null>(null);
+
 const rootElement =
   (document.getElementById('root') as HTMLElement) ||
   document.createElement('div');
@@ -64,11 +57,10 @@ root.render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <LanguageProvider>
-          <Context.Provider value={{ auth, db, signInWithGoogle }}>
-            <App />
-          </Context.Provider>
+          <App />
         </LanguageProvider>
       </QueryClientProvider>
     </Provider>
   </StrictMode>
 );
+
